@@ -11,7 +11,7 @@ Differences from pathlib paths are:
   ``shutil.rmtree(path)`` will also work.
 
 - It adds a ``strict`` parameter to the ``relative_to`` operation
-  which, when set to ``False`` will also navigate up in the hierarchy.
+  which, when set to ``False``, will also navigate up in the hierarchy.
 
 License
 -------

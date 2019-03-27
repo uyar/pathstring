@@ -1,6 +1,9 @@
 # Copyright (C) 2019 H. Turgut Uyar <uyar@tekir.org>
+#
+# pathstring is released under the BSD license. Read the included
+# LICENSE.txt file for details.
 
-"""Helpers for file system path operations."""
+"""String class with path operations."""
 
 import os
 import types
