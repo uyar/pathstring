@@ -6,11 +6,11 @@
 """String class with path operations."""
 
 import os
+import shutil
 import types
 from inspect import signature
 from itertools import dropwhile, zip_longest
 from pathlib import Path as P
-from shutil import rmtree
 
 
 __version__ = "0.1.0"
@@ -87,7 +87,7 @@ def _make_path_type(name):
     ]:
         attrs[method] = get_method(method)
     attrs["relative_to"] = relative_to
-    attrs["rmtree"] = rmtree
+    attrs["rmtree"] = shutil.rmtree
 
     return type(name, (str,), attrs)
 
