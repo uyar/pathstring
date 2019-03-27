@@ -25,7 +25,7 @@ classifiers = [
     "Topic :: Software Development :: Libraries :: Python Modules"
 ]
 
-include = ["HISTORY.rst", "tests/**/*.py"]
+include = ["HISTORY.rst", "*.pyi", "tests/**/*.py"]
 
 [tool.poetry.dependencies]
 python = "^3.5"
