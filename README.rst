@@ -6,9 +6,8 @@ Differences from pathlib paths are:
 
 - Paths are strings, no need to cast them to strings.
 
-- It adds an ``rmtree`` operation which invokes ``shutil.rmtree``.
-  Actually, since paths are also strings, in addition to ``path.rmtree()``,
-  ``shutil.rmtree(path)`` will also work.
+- It adds a ``path.rmtree()`` operation which invokes ``shutil.rmtree``.
+  Actually, since paths are strings, ``shutil.rmtree(path)`` will also work.
 
 - It adds a ``strict`` parameter to the ``relative_to`` operation
   which, when set to ``False``, will also navigate up in the hierarchy.
