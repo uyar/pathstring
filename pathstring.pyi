@@ -1,5 +1,7 @@
 from typing import Any, Generator, IO, Optional, Tuple, Union
 
+__version__ = ...  # type: str
+
 import os
 
 class Path(str):
