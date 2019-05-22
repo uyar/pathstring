@@ -1,12 +1,10 @@
 History
 =======
 
-0.1.1 (unreleased)
+0.2.0 (unreleased)
 ------------------
 
-- Added attributes: ``drive``, ``root``, ``anchor``, ``suffixes``.
-- Added methods: ``as_uri``, ``chmod``, ``group``, ``owner``, ``is_socket``,
-  ``is_fifo``, ``is_block_device``, ``is_char_device``.
+- Added most of missing properties and methods from pathlib paths.
 
 0.1.0 (2019-03-27)
 ------------------

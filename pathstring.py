@@ -66,7 +66,15 @@ def _make_path_type(name):
         )
     for method in ["cwd", "home"]:
         attrs[method] = get_method(method, class_method=True, as_path=True)
-    for method in ["absolute", "resolve", "with_name", "with_suffix", "glob"]:
+    for method in [
+        "absolute",
+        "iterdir",
+        "resolve",
+        "with_name",
+        "with_suffix",
+        "glob",
+        "rglob",
+    ]:
         attrs[method] = get_method(method, as_path=True)
     for method in [
         "as_uri",
@@ -87,6 +95,7 @@ def _make_path_type(name):
         "symlink_to",
         "open",
         "owner",
+        "rename",
         "touch",
         "unlink",
         "read_bytes",
