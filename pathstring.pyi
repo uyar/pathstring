@@ -1,4 +1,4 @@
-from typing import Any, Generator, IO, Optional, Tuple, Union
+from typing import Any, Generator, IO, Optional, Tuple
 
 __version__ = ...  # type: str
 
