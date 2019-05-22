@@ -1,4 +1,3 @@
-# flake8: noqa
 from pytest import raises
 
 from os.path import pardir
@@ -12,7 +11,7 @@ def test_version():
 
 
 def test_relative_to_target_starting_with_parent_folder_should_fail_when_strict():
-    with raises(ValueError) as e:
+    with raises(ValueError):
         Path("d1", "d2", "f").relative_to(Path("d1", "d3"))
 
 
@@ -33,8 +32,16 @@ def test_relative_to_target_in_parent_folder_should_start_with_parent():
 
 
 def test_relative_to_target_in_grandparent_folder_should_start_with_two_parents():
-    assert Path("d1", "f").relative_to(Path("d1", "d2", "d3"), strict=False).parts == (pardir, pardir, "f")
+    assert Path("d1", "f").relative_to(Path("d1", "d2", "d3"), strict=False).parts == (
+        pardir,
+        pardir,
+        "f",
+    )
 
 
 def test_relative_to_target_in_diagonal_folder_should_go_up_and_down_when_not_stict():
-    assert Path("d1", "d2", "f").relative_to(Path("d1", "d3"), strict=False).parts == (pardir, "d2", "f")
+    assert Path("d1", "d2", "f").relative_to(Path("d1", "d3"), strict=False).parts == (
+        pardir,
+        "d2",
+        "f",
+    )
