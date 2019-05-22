@@ -4,7 +4,7 @@ History
 0.1.1 (unreleased)
 ------------------
 
-- Added attributes: ``drive``, ``root``, ``anchor``.
+- Added attributes: ``drive``, ``root``, ``anchor``, ``suffixes``.
 - Added methods: ``as_uri``.
 
 0.1.0 (2019-03-27)

@@ -58,7 +58,7 @@ def _make_path_type(name):
 
     attrs = {}
     attrs["__new__"] = new_path
-    for attr in ["parts", "drive", "root", "anchor", "name", "suffix", "stem"]:
+    for attr in ["parts", "drive", "root", "anchor", "name", "suffix", "suffixes", "stem"]:
         attrs[attr] = property(get_property(attr), doc=getattr(P, attr).__doc__)
     for attr in ["parent"]:
         attrs[attr] = property(get_property(attr, as_path=True), doc=getattr(P, attr).__doc__)

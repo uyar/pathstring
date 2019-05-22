@@ -1,4 +1,4 @@
-from typing import Any, Generator, IO, Optional, Tuple
+from typing import Any, Generator, IO, List, Optional, Tuple
 
 __version__ = ...  # type: str
 
@@ -11,6 +11,7 @@ class Path(str):
     root: str
     anchor: str
     suffix: str
+    suffixes: List[str]
     stem: str
     parent: Path
     def __new__(cls, *args) -> Path: ...
