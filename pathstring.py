@@ -68,6 +68,7 @@ def _make_path_type(name):
         attrs[method] = get_method(method, class_method=True, as_path=True)
     for method in [
         "absolute",
+        "expanduser",
         "iterdir",
         "resolve",
         "with_name",
@@ -77,6 +78,7 @@ def _make_path_type(name):
     ]:
         attrs[method] = get_method(method, as_path=True)
     for method in [
+        "as_posix",
         "as_uri",
         "is_absolute",
         "stat",
