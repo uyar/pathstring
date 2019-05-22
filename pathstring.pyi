@@ -1,15 +1,15 @@
 from typing import Any, Generator, IO, List, Optional, Tuple
 
-__version__ = ...  # type: str
-
 import os
+
+__version__ = ...  # type: str
 
 class Path(str):
     parts: Tuple[str, ...]
-    name: str
     drive: str
     root: str
     anchor: str
+    name: str
     suffix: str
     suffixes: List[str]
     stem: str
