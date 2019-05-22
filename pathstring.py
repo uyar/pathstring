@@ -23,6 +23,8 @@ def _make_path_type(name):
     def get_property(prop, *, as_path=False):
         def f(self):
             result = getattr(pathlib.Path(self), prop)
+            if isinstance(result, pathlib._PathParents):
+                return (Path(p) for p in result)
             return result if not as_path else Path(result)
 
         return f
@@ -60,7 +62,7 @@ def _make_path_type(name):
     attrs["__new__"] = new_path
     for attr in ["parts", "drive", "root", "anchor", "name", "suffix", "suffixes", "stem"]:
         attrs[attr] = property(get_property(attr), doc=getattr(pathlib.Path, attr).__doc__)
-    for attr in ["parent"]:
+    for attr in ["parent", "parents"]:
         attrs[attr] = property(
             get_property(attr, as_path=True), doc=getattr(pathlib.Path, attr).__doc__
         )

@@ -1,4 +1,4 @@
-from typing import Any, Generator, IO, List, Optional, Tuple, Type, Union
+from typing import Any, Generator, IO, List, Optional, Sequence, Tuple, Type, Union
 
 import os
 
@@ -14,6 +14,7 @@ class Path(str):
     suffixes: List[str]
     stem: str
     parent: Path
+    parents: Sequence[Path]
     def __new__(cls: Type[Path], *args: Union[str, Path]) -> Path: ...
     def as_posix(self) -> str: ...
     def as_uri(self) -> str: ...
