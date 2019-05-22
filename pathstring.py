@@ -67,6 +67,7 @@ def _make_path_type(name):
     for method in ["absolute", "resolve", "with_name", "with_suffix", "glob"]:
         attrs[method] = get_method(method, as_path=True)
     for method in [
+        "as_uri",
         "is_absolute",
         "stat",
         "exists",
