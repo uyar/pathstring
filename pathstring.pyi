@@ -5,11 +5,11 @@ __version__ = ...  # type: str
 import os
 
 class Path(str):
-    parts = ...  # type: Tuple[str, ...]
-    name = ...  # type: str
-    suffix = ...  # type: str
-    stem = ...  # type: str
-    parent = ...  # type: Path
+    parts: Tuple[str, ...]
+    name: str
+    suffix: str
+    stem: str
+    parent: Path
     def __new__(cls, *args) -> Path: ...
     @classmethod
     def cwd(cls) -> Path: ...
