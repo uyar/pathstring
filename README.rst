@@ -12,6 +12,8 @@ Differences from pathlib paths are:
 - It adds a ``strict`` parameter to the ``relative_to`` operation
   which, when set to ``False``, will also navigate up in the hierarchy.
 
+- It doesn't support the slash operator for joining paths.
+
 License
 -------
 
