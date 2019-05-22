@@ -95,6 +95,8 @@ def _make_path_type(name):
         "is_reserved",
         "is_socket",
         "is_symlink",
+        "lchmod",
+        "lstat",
         "match",
         "mkdir",
         "open",
