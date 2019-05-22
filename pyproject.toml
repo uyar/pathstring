@@ -7,8 +7,7 @@ readme = "README.rst"
 authors = ["H. Turgut Uyar <uyar@tekir.org>"]
 license = "BSD-3-Clause"
 
-homepage = "https://github.com/uyar/pathstring"
-documentation = "https://github.com/uyar/pathstring"
+homepage = "https://pypi.org/project/pathstring/"
 repository = "https://github.com/uyar/pathstring"
 
 keywords = ["path"]
