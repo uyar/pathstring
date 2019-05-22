@@ -6,11 +6,11 @@
 """String class with path operations."""
 
 import os
+import pathlib
 import shutil
 import types
 from inspect import signature
 from itertools import dropwhile, zip_longest
-from pathlib import Path as NativePath
 
 
 __version__ = "0.1.0"
@@ -18,22 +18,22 @@ __version__ = "0.1.0"
 
 def _make_path_type(name):
     def new_path(cls, *args):
-        return str.__new__(cls, str(NativePath(*args)))
+        return str.__new__(cls, str(pathlib.Path(*args)))
 
     def get_property(prop, *, as_path=False):
         def f(self):
-            result = getattr(NativePath(self), prop)
+            result = getattr(pathlib.Path(self), prop)
             return result if not as_path else Path(result)
 
         return f
 
     def get_method(meth, *, class_method=False, as_path=False):
-        m = getattr(NativePath, meth)
+        m = getattr(pathlib.Path, meth)
 
         def f(*args, **kwargs):
             if not class_method:
                 self, *rest = args
-                args = (NativePath(self),) + tuple(rest)
+                args = (pathlib.Path(self),) + tuple(rest)
             result = m(*args, **kwargs)
             if isinstance(result, types.GeneratorType):
                 return (Path(p) for p in result)
@@ -48,7 +48,7 @@ def _make_path_type(name):
     def relative_to(self, other, strict=True):
         """Get the relative path of this path starting from another path."""
         if strict:
-            return NativePath(self).relative_to(other)
+            return pathlib.Path(self).relative_to(other)
         parts = zip_longest(other.absolute().parts, self.absolute().parts)
         path_diff = dropwhile(lambda ps: ps[0] == ps[1], parts)
         up_parts, down_parts = zip(*path_diff)
@@ -59,10 +59,10 @@ def _make_path_type(name):
     attrs = {}
     attrs["__new__"] = new_path
     for attr in ["parts", "drive", "root", "anchor", "name", "suffix", "suffixes", "stem"]:
-        attrs[attr] = property(get_property(attr), doc=getattr(NativePath, attr).__doc__)
+        attrs[attr] = property(get_property(attr), doc=getattr(pathlib.Path, attr).__doc__)
     for attr in ["parent"]:
         attrs[attr] = property(
-            get_property(attr, as_path=True), doc=getattr(NativePath, attr).__doc__
+            get_property(attr, as_path=True), doc=getattr(pathlib.Path, attr).__doc__
         )
     for method in ["cwd", "home"]:
         attrs[method] = get_method(method, class_method=True, as_path=True)
