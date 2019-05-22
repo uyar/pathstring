@@ -7,6 +7,9 @@ import os
 class Path(str):
     parts: Tuple[str, ...]
     name: str
+    drive: str
+    root: str
+    anchor: str
     suffix: str
     stem: str
     parent: Path
