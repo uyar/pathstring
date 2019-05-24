@@ -54,6 +54,35 @@ def test_double_dots_should_be_collapsed():
     assert Path("foo/../bar") == "foo/../bar".replace("/", sep)
 
 
+def test_parts_should_be_a_sequence_of_components():
+    assert Path("/usr/bin/python3").parts == (sep, "usr", "bin", "python3")
+
+
+@mark.skipif(sys.platform != "win32", reason="windows behaviour")
+def test_anchor_should_be_a_separate_part_on_windows():
+    assert Path("c:\\Program Files\\PSF").parts == ("c:\\", "Program Files", "PSF")
+
+
+@mark.skipif(sys.platform != "win32", reason="windows behaviour")
+def test_drive_should_be_drive_letter_on_windows():
+    assert Path("c:\\Program Files\\").drive == "c:"
+
+
+@mark.skipif(sys.platform != "win32", reason="windows behaviour")
+def test_no_drive_should_be_empty_string_on_windows():
+    assert Path("\\Program Files\\PSF").drive == ""
+
+
+@mark.skipif(sys.platform == "win32", reason="posix behaviour")
+def test_drive_should_always_be_empty_on_posix():
+    assert Path("/etc").drive == ""
+
+
+@mark.skipif(sys.platform != "win32", reason="windows behaviour")
+def test_unc_shares_should_be_considered_as_drives_on_windows():
+    assert Path("//host/share/foo.txt").drive == "\\\\host\\share"
+
+
 def test_relative_to_target_starting_with_parent_folder_should_fail_when_strict():
     with raises(ValueError):
         Path("d1", "d2", "f").relative_to(Path("d1", "d3"))
