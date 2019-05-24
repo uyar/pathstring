@@ -50,7 +50,7 @@ def _make_path_type(name):
     def relative_to(self, other, strict=True):
         """Get the relative path of this path starting from another path."""
         if strict:
-            return pathlib.Path(self).relative_to(other)
+            return Path(pathlib.Path(self).relative_to(other))
         parts = zip_longest(other.absolute().parts, self.absolute().parts)
         path_diff = dropwhile(lambda ps: ps[0] == ps[1], parts)
         up_parts, down_parts = zip(*path_diff)
