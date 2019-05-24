@@ -1,5 +1,6 @@
-from pytest import raises
+from pytest import mark, raises
 
+import sys
 from os.path import pardir
 from pkg_resources import get_distribution
 
@@ -8,6 +9,49 @@ from pathstring import __version__, Path
 
 def test_version():
     assert get_distribution("pathstring").version == __version__
+
+
+def test_single_segment_should_be_same_as_input():
+    assert Path("setup.py") == "setup.py"
+
+
+def test_multiple_segments_should_be_concatenated():
+    assert Path("foo", "some/path", "bar") == "foo/some/path/bar"
+
+
+def test_multiple_path_segments_should_be_concatenated():
+    assert Path(Path("foo"), Path("bar")) == "foo/bar"
+
+
+def test_no_segment_should_be_current_directory():
+    assert Path() == "."
+
+
+@mark.skipif(sys.platform == "win32", reason="posix behaviour")
+def test_multiple_absolute_paths_should_anchor_to_last_on_posix():
+    assert Path("/etc", "/usr", "lib64") == "/usr/lib64"
+
+
+@mark.skipif(sys.platform != "win32", reason="windows behaviour")
+def test_multiple_absolute_paths_should_anchor_to_last_on_windows():
+    assert Path("c:/Windows", "d:bar") == "d:bar"
+
+
+@mark.skipif(sys.platform != "win32", reason="windows behaviour")
+def test_changing_local_root_should_not_discard_drive():
+    assert Path("c:/Windows", "/Program Files") == "c:/Program Files"
+
+
+def test_spurious_slashes_should_be_collapsed():
+    assert Path("foo//bar") == "foo/bar"
+
+
+def test_single_dots_should_be_collapsed():
+    assert Path("foo/./bar") == "foo/bar"
+
+
+def test_double_dots_should_be_collapsed():
+    assert Path("foo/../bar") == "foo/../bar"
 
 
 def test_relative_to_target_starting_with_parent_folder_should_fail_when_strict():
