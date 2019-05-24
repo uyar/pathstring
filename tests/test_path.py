@@ -103,6 +103,9 @@ def test_unc_shares_should_always_have_a_root_on_windows():
     assert Path("\\\\host\\share\\").root == "\\"
 
 
+# TODO: ".anchor" tests
+
+
 def test_parents_should_be_a_sequence_of_paths():
     assert list(Path("/foo/bar/setup.py").parents) == [
         "/foo/bar".replace("/", sep),
@@ -132,7 +135,54 @@ def test_parent_should_be_lexical_operation():
     assert Path("foo/..").parent == "foo"
 
 
-# TODO: ".anchor" tests
+def test_name_should_be_base_name():
+    assert Path("my/library/setup.py").name == "setup.py"
+
+
+@mark.skipif(sys.platform != "win32", reason="windows behaviour")
+def test_unc_base_names_should_be_considered_on_windows():
+    assert Path("\\\\some\\share\\setup.py").name == "setup.py"
+
+
+@mark.skipif(sys.platform != "win32", reason="windows behaviour")
+def test_unc_drive_names_should_be_considered_on_windows():
+    assert Path("\\\\some\\share").name == ""
+
+
+def test_suffix_should_be_extension_of_final_component():
+    assert Path("my/library/setup.py").suffix == ".py"
+
+
+def test_suffix_should_be_last_extension_of_final_component():
+    assert Path("my/library.tar.gz").suffix == ".gz"
+
+
+def test_suffix_none_should_be_empty_string():
+    assert Path("my/library").suffix == ""
+
+
+def test_suffixes_should_be_a_sequence_of_extensions_of_final_component():
+    assert Path("my/library.tar.gz").suffixes == [".tar", ".gz"]
+
+
+def test_suffixes_should_be_a_sequence_even_if_single():
+    assert Path("my/library.tar").suffixes == [".tar"]
+
+
+def test_suffixes_none_should_be_empty_sequence():
+    assert Path("my/library").suffixes == []
+
+
+def test_stem_should_be_base_name_without_suffix():
+    assert Path("my/library.tar").stem == "library"
+
+
+def test_stem_should_be_base_name_without_last_suffix():
+    assert Path("my/library.tar.gz").stem == "library.tar"
+
+
+def test_stem_should_be_base_name_if_no_suffix():
+    assert Path("my/library").stem == "library"
 
 
 def test_relative_to_target_starting_with_parent_folder_should_fail_when_strict():
