@@ -80,7 +80,7 @@ def test_drive_should_always_be_empty_on_posix():
 
 @mark.skipif(sys.platform != "win32", reason="windows behaviour")
 def test_unc_shares_should_be_considered_as_drives_on_windows():
-    assert Path("//host/share/foo.txt").drive == "\\\\host\\share"
+    assert Path("\\\\host\\share\\foo.txt").drive == "\\\\host\\share"
 
 
 def test_relative_to_target_starting_with_parent_folder_should_fail_when_strict():
