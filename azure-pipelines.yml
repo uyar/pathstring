@@ -6,43 +6,66 @@
 trigger:
 - master
 
-strategy:
-  matrix:
-    linux-py35:
-      imageName: 'ubuntu-16.04'
-      python.version: '3.5'
-    linux-py36:
-      imageName: 'ubuntu-16.04'
-      python.version: '3.6'
-    linux-py37:
-      imageName: 'ubuntu-16.04'
-      python.version: '3.7'
-    windows-py35:
-      imageName: 'vs2017-win2016'
-      python.version: '3.5'
-    windows-py36:
-      imageName: 'vs2017-win2016'
-      python.version: '3.6'
-    windows-py37:
-      imageName: 'vs2017-win2016'
-      python.version: '3.7'
+jobs:
+- job: tests
+  strategy:
+    matrix:
+      linux-py35:
+        imageName: 'ubuntu-16.04'
+        python.version: '3.5'
 
-pool:
-  vmImage: $(imageName)
+      linux-py36:
+        imageName: 'ubuntu-16.04'
+        python.version: '3.6'
 
-steps:
-- task: UsePythonVersion@0
-  inputs:
-    versionSpec: '$(python.version)'
-  displayName: 'Use Python $(python.version)'
+      linux-py37:
+        imageName: 'ubuntu-16.04'
+        python.version: '3.7'
 
-- script: |
-    python -m pip install --upgrade poetry
-  displayName: 'Install poetry'
+      windows-py35:
+        imageName: 'vs2017-win2016'
+        python.version: '3.5'
 
-- script: |
-    python -m pip install --upgrade tox
-  displayName: 'Install tox'
+      windows-py36:
+        imageName: 'vs2017-win2016'
+        python.version: '3.6'
 
-- script: tox -e py
-  displayName: 'Run Tox'
+      windows-py37:
+        imageName: 'vs2017-win2016'
+        python.version: '3.7'
+
+  pool:
+    vmImage: $(imageName)
+
+  steps:
+  - task: UsePythonVersion@0
+    inputs:
+      versionSpec: '$(python.version)'
+    displayName: 'Use Python $(python.version)'
+
+  - script: |
+      python -m pip install --upgrade poetry
+    displayName: 'Install poetry'
+
+  - script: |
+      python -m pip install --upgrade tox
+    displayName: 'Install tox'
+
+  - script: tox -e py
+    displayName: 'Run Tox'
+
+- job: style
+  pool:
+    vmImage: 'ubuntu-16.04'
+
+  steps:
+  - script: |
+      python -m pip install --upgrade poetry
+    displayName: 'Install poetry'
+
+  - script: |
+      python -m pip install --upgrade tox
+    displayName: 'Install tox'
+
+  - script: tox -e style
+    displayName: 'Run flake8'
