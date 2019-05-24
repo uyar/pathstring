@@ -187,36 +187,32 @@ def test_stem_should_be_base_name_if_no_suffix():
 
 def test_relative_to_target_starting_with_parent_folder_should_fail_when_strict():
     with raises(ValueError):
-        Path("d1", "d2", "f").relative_to(Path("d1", "d3"))
+        Path("d1/d2/f").relative_to(Path("d1/d3"))
 
 
 def test_relative_to_target_in_same_folder_should_be_target_name():
-    assert Path("d1", "f").relative_to(Path("d1")).parts == ("f",)
+    assert Path("d1/f").relative_to(Path("d1")) == "f"
 
 
 def test_relative_to_target_in_child_folder_should_start_with_child():
-    assert Path("d1", "d2", "f").relative_to(Path("d1")).parts == ("d2", "f")
+    assert Path("d1/d2/f").relative_to(Path("d1")) == "d2/f".replace("/", sep)
 
 
 def test_relative_to_target_in_grandchild_folder_should_start_with_two_children():
-    assert Path("d1", "d2", "d3", "f").relative_to(Path("d1")).parts == ("d2", "d3", "f")
+    assert Path("d1/d2/d3/f").relative_to(Path("d1")) == "d2/d3/f".replace("/", sep)
 
 
 def test_relative_to_target_in_parent_folder_should_start_with_parent():
-    assert Path("d1", "f").relative_to(Path("d1", "d2"), strict=False).parts == (pardir, "f")
+    assert Path("d1/f").relative_to(Path("d1/d2"), strict=False) == "../f".replace("/", sep)
 
 
 def test_relative_to_target_in_grandparent_folder_should_start_with_two_parents():
-    assert Path("d1", "f").relative_to(Path("d1", "d2", "d3"), strict=False).parts == (
-        pardir,
-        pardir,
-        "f",
+    assert Path("d1/f").relative_to(Path("d1/d2/d3"), strict=False) == "../../f".replace(
+        "/", sep
     )
 
 
 def test_relative_to_target_in_diagonal_folder_should_go_up_and_down_when_not_stict():
-    assert Path("d1", "d2", "f").relative_to(Path("d1", "d3"), strict=False).parts == (
-        pardir,
-        "d2",
-        "f",
+    assert Path("d1/d2/f").relative_to(Path("d1/d3"), strict=False) == "../d2/f".replace(
+        "/", sep
     )
