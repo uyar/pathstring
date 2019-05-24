@@ -185,6 +185,26 @@ def test_stem_should_be_base_name_if_no_suffix():
     assert Path("my/library").stem == "library"
 
 
+@mark.skipif(sys.platform == "win32", reason="posix behaviour")
+def test_as_posix_should_return_same_result_on_posix():
+    assert Path("/etc/passwd").as_posix() == "/etc/passwd"
+
+
+@mark.skipif(sys.platform != "win32", reason="windows behaviour")
+def test_as_posix_should_use_forward_slashes_on_windows():
+    assert Path("c:\\windows").as_posix() == "c:/windows"
+
+
+@mark.skipif(sys.platform == "win32", reason="posix behaviour")
+def test_as_uri_should_return_uri():
+    assert Path("/etc/passwd").as_uri() == "file:///etc/passwd"
+
+
+@mark.skipif(sys.platform != "win32", reason="windows behaviour")
+def test_as_uri_should_use_forward_slashes_on_windows():
+    assert Path("c:\\windows").as_posix() == "file:///c:/Windows"
+
+
 def test_relative_to_target_starting_with_parent_folder_should_fail_when_strict():
     with raises(ValueError):
         Path("d1/d2/f").relative_to(Path("d1/d3"))
