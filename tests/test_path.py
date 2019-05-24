@@ -202,7 +202,7 @@ def test_as_uri_should_return_uri():
 
 @mark.skipif(sys.platform != "win32", reason="windows behaviour")
 def test_as_uri_should_use_forward_slashes_on_windows():
-    assert Path("c:\\windows").as_uri() == "file:///c:/Windows"
+    assert Path("c:\\Windows").as_uri() == "file:///c:/Windows"
 
 
 def test_relative_to_target_starting_with_parent_folder_should_fail_when_strict():
