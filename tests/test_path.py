@@ -116,7 +116,7 @@ def test_parents_should_be_a_sequence_of_paths():
 
 @mark.skipif(sys.platform != "win32", reason="windows behaviour")
 def test_parents_should_include_drive_on_windows():
-    assert list(Path("c:\\foo\\bar\\setup.py").parents) == ["c:\\foo/bar", "c:\\foo", "c:\\"]
+    assert list(Path("c:\\foo\\bar\\setup.py").parents) == ["c:\\foo\\bar", "c:\\foo", "c:\\"]
 
 
 def test_parent_should_be_parent_directory():
