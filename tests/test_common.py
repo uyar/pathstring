@@ -154,18 +154,14 @@ def test_match_absolute_pattern_should_not_match_absoluve_path_partially():
 # TODO: case-sensitive match (?)
 
 
-def test_relative_to_target_starting_with_parent_folder_should_fail_when_strict():
+def test_relative_to_target_in_child_directory_should_start_with_child():
+    assert Path("/etc/passwd").relative_to(Path("/")) == "etc/passwd".replace("/", os.path.sep)
+
+
+def test_relative_to_target_in_same_directory_should_be_target_name():
+    assert Path("/etc/passwd").relative_to(Path("/etc")) == "passwd"
+
+
+def test_relative_to_requiring_parent_directory_should_fail_when_strict():
     with raises(ValueError):
-        Path("d1/d2/f").relative_to(Path("d1/d3"))
-
-
-def test_relative_to_target_in_same_folder_should_be_target_name():
-    assert Path("d1/f").relative_to(Path("d1")) == "f"
-
-
-def test_relative_to_target_in_child_folder_should_start_with_child():
-    assert Path("d1/d2/f").relative_to(Path("d1")) == "d2/f".replace("/", os.path.sep)
-
-
-def test_relative_to_target_in_grandchild_folder_should_start_with_two_children():
-    assert Path("d1/d2/d3/f").relative_to(Path("d1")) == "d2/d3/f".replace("/", os.path.sep)
+        Path("/etc/passwd").relative_to(Path("/usr"))
