@@ -40,7 +40,7 @@ def test_double_dots_should_not_be_collapsed():
     assert Path("foo/../bar") == "foo/../bar".replace("/", os.path.sep)
 
 
-# TODO: case-sensitivity, equality, truediv (?)
+# TODO: truediv (?)
 
 
 def test_parts_should_be_a_sequence_of_components():
@@ -152,9 +152,6 @@ def test_match_absolute_pattern_should_match_absoluve_path():
 
 def test_match_absolute_pattern_should_not_match_absoluve_path_partially():
     assert not Path("a/b.py").match("/*.py")
-
-
-# TODO: case-sensitive match (?)
 
 
 def test_relative_to_target_in_child_directory_should_start_with_child():
