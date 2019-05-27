@@ -44,7 +44,7 @@ jobs:
     displayName: 'Install tox'
 
   - script: tox -e py
-    displayName: 'Run Tox'
+    displayName: 'Run tox'
 
 - job: style
   strategy:
