@@ -1,7 +1,6 @@
 from pytest import mark, raises
 
 import os.path
-import sys
 from pkg_resources import get_distribution
 
 from pathstring import __version__, Path
@@ -192,3 +191,11 @@ def test_with_suffix_should_add_suffix_when_no_suffix_in_source():
 
 def test_with_suffix_should_remove_suffix_when_no_suffix_in_destination():
     assert Path("README.txt").with_suffix("") == "README"
+
+
+def test_cwd_should_return_same_as_getcwd():
+    assert Path.cwd() == os.getcwd()
+
+
+def test_home_should_return_home_directory_of_current_user():
+    assert Path.home() == os.path.expanduser("~")
