@@ -84,8 +84,8 @@ def test_is_reserved_should_be_true_for_reserved_paths():
     assert Path("nul").is_reserved()
 
 
-def test_is_reserved_should_be_true_for_regular_paths():
-    assert Path("c:\\\\windows").is_reserved()
+def test_is_reserved_should_not_be_true_for_regular_paths():
+    assert not Path("c:\\\\windows").is_reserved()
 
 
 def test_joinpath_should_extend_drive_with_path():
