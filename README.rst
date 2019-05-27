@@ -21,7 +21,7 @@ Differences from pathlib paths are:
 
 - No support for the slash operator for joining paths (for now).
 
-- No support for case-insensitive equality checks on Windows (for now).
+- No support for case-insensitive comparisons on Windows.
 
 - No ``Path.replace()`` method since it would cause confusion with
   ``str.replace()``.
