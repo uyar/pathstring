@@ -1,4 +1,4 @@
-from pytest import mark
+from pytest import mark, raises
 
 import sys
 
@@ -90,3 +90,8 @@ def test_is_reserved_should_not_be_true_for_regular_paths():
 
 def test_joinpath_should_extend_drive_with_path():
     assert Path("c:").joinpath("\\Program Files") == "c:\\Program Files"
+
+
+def test_relative_to_on_different_drive_should_fail_even_when_not_strict():
+    with raises(ValueError):
+        Path("c:\\windows").relative_to(Path("d:\\"), strict=False)
