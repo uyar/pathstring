@@ -1,6 +1,8 @@
 from pytest import mark, raises
 
-import os.path
+import os
+import time
+
 from pkg_resources import get_distribution
 
 from pathstring import __version__, Path
@@ -199,3 +201,34 @@ def test_cwd_should_return_same_as_getcwd():
 
 def test_home_should_return_home_directory_of_current_user():
     assert Path.home() == os.path.expanduser("~")
+
+
+def test_stat_should_contain_file_size(fs):
+    assert Path(fs, "file1.txt").stat().st_size == 4
+
+
+def test_stat_should_contain_modification_time(fs):
+    assert time.time() - Path(fs, "file1.txt").stat().st_mtime < 1
+
+
+def test_stat_should_contain_permissions(fs):
+    assert Path(fs, "file1.txt").stat().st_mode == 33188
+
+
+def test_chmod_should_change_permissions(fs):
+    Path(fs, "file1.txt").chmod(0o444)
+    assert Path(fs, "file1.txt").stat().st_mode == 33060
+
+
+def test_exists_should_return_true_for_existing_file(fs):
+    assert Path(fs, "file1.txt").exists()
+
+
+def test_exists_should_return_false_for_nonexisting_file(fs):
+    assert not Path(fs, "file0.txt").exists()
+
+
+def test_expanduser_should_return_path_with_user_home_expanded():
+    assert Path("~/films/Monty Python").expanduser() == os.path.join(
+        os.path.expanduser("~"), "films", "Monty Python"
+    )
