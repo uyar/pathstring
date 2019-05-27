@@ -116,6 +116,18 @@ def test_stem_should_be_base_name_if_no_suffix():
     assert Path("my/library").stem == "library"
 
 
+def test_joinpath_should_extend_current_path():
+    assert Path("/etc").joinpath("passwd") == "/etc/passwd"
+
+
+def test_joinpath_should_extend_current_path_with_path():
+    assert Path("/etc").joinpath(Path("passwd")) == "/etc/passwd"
+
+
+def test_joinpath_should_extend_current_path_with_multiple_segments():
+    assert Path("/etc").joinpath("init.d", "apache2") == "/etc/init.d/apache2"
+
+
 def test_relative_to_target_starting_with_parent_folder_should_fail_when_strict():
     with raises(ValueError):
         Path("d1/d2/f").relative_to(Path("d1/d3"))

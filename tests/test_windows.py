@@ -86,3 +86,7 @@ def test_is_reserved_should_be_true_for_reserved_paths():
 
 def test_is_reserved_should_be_true_for_regular_paths():
     assert Path("c:\\\\windows").is_reserved()
+
+
+def test_joinpath_should_extend_drive_with_path():
+    assert Path("c:").joinpath("\\Program Files") == "c:\\Program Files"
