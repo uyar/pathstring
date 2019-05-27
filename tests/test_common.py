@@ -167,6 +167,18 @@ def test_relative_to_requiring_parent_directory_should_fail_when_strict():
         Path("/etc/passwd").relative_to(Path("/usr"))
 
 
+def test_relative_to_requiring_parent_directory_should_start_with_pardir():
+    assert Path("/etc/passwd").relative_to(
+        Path("/etc/network"), strict=False
+    ) == "../passwd".replace("/", os.path.sep).replace("..", os.path.pardir)
+
+
+def test_relative_to_requiring_multiple_parent_directories_should_start_with_multiple_pardirs():
+    assert Path("/etc/passwd").relative_to(
+        Path("/usr/bin"), strict=False
+    ) == "../../etc/passwd".replace("/", os.path.sep).replace("..", os.path.pardir)
+
+
 def test_with_name_should_return_path_with_changed_name():
     assert Path("/tmp/pathlib.tar.gz").with_name("setup.py") == "/tmp/setup.py".replace(
         "/", os.path.sep
