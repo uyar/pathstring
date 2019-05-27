@@ -9,6 +9,9 @@ Differences from pathlib paths are:
 
 - No distinction between "pure" and "concrete" paths.
 
+- No explicit distinction between Posix and Windows paths, but paths are
+  always "native" to their platform.
+
 - Adds a ``Path.rmtree()`` method which invokes ``shutil.rmtree()``
   on the path. Actually, since paths are strings, ``shutil.rmtree(path)``
   will also work.
