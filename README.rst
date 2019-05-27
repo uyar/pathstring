@@ -1,23 +1,27 @@
-pathstring is a very small module that provides a string class
-which supports path operations. Technically, it subclasses ``str``
-and delegates path related operations to ``pathlib.Path``.
+pathstring is a very small module that provides only one class
+(``pathstring.Path``) which is a string with support for path operations.
+Technically, it subclasses ``str`` and delegates path related operations to
+``pathlib.Path``.
 
 Differences from pathlib paths are:
 
-- Paths are strings, no need to cast them to strings. No distinction
-  between "pure" and "concrete" paths.
+- Paths are strings, no need to cast them to strings.
 
-- A ``path.rmtree()`` operation which invokes ``shutil.rmtree``.
-  Actually, since paths are strings, ``shutil.rmtree(path)`` will also work.
+- No distinction between "pure" and "concrete" paths.
 
-- A ``strict`` parameter to the ``relative_to`` operation
+- Adds a ``Path.rmtree()`` method which invokes ``shutil.rmtree()``
+  on the path. Actually, since paths are strings, ``shutil.rmtree(path)``
+  will also work.
+
+- Adds a ``strict`` parameter to the ``Path.relative_to()`` method
   which, when set to ``False``, will also navigate up in the hierarchy.
 
 - No support the slash operator for joining paths (for now).
 
 - No support for case-insensitive equality checks on Windows (for now).
 
-- No ``.replace`` method since it would cause confusion with ``str.replace``.
+- No ``Path.replace()`` method since it would cause confusion with
+  ``str.replace()``.
 
 Features are tested extensively against `pathlib documentation`_ to guarantee
 compatibility.
