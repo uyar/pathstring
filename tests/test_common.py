@@ -165,3 +165,24 @@ def test_relative_to_target_in_same_directory_should_be_target_name():
 def test_relative_to_requiring_parent_directory_should_fail_when_strict():
     with raises(ValueError):
         Path("/etc/passwd").relative_to(Path("/usr"))
+
+
+def test_with_name_should_return_path_with_changed_name():
+    assert Path("/tmp/pathlib.tar.gz").with_name("setup.py") == "/tmp/setup.py"
+
+
+def test_with_name_should_fail_when_no_name_in_source():
+    with raises(ValueError):
+        Path("/").with_name("setup.py")
+
+
+def test_with_suffix_should_return_path_with_changed_suffix():
+    assert Path("/tmp/pathlib.tar.gz").with_suffix(".bz2") == "/tmp/pathlib.tar.bz2"
+
+
+def test_with_suffix_should_add_suffix_when_no_suffix_in_source():
+    assert Path("README").with_suffix(".txt") == "README.txt"
+
+
+def test_with_suffix_should_remove_suffix_when_no_suffix_in_destination():
+    assert Path("README.txt").with_suffix("") == "README"
