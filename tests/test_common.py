@@ -1,4 +1,4 @@
-from pytest import mark, raises
+from pytest import raises
 
 import os
 import time
