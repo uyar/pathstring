@@ -39,6 +39,9 @@ def test_double_dots_should_not_be_collapsed():
     assert Path("foo/../bar") == "foo/../bar".replace("/", os.path.sep)
 
 
+# TODO: case-sensitivity, equality, truediv (?)
+
+
 def test_parts_should_be_a_sequence_of_components():
     assert Path("/usr/bin/python3").parts == (os.path.sep, "usr", "bin", "python3")
 
@@ -126,6 +129,29 @@ def test_joinpath_should_extend_current_path_with_path():
 
 def test_joinpath_should_extend_current_path_with_multiple_segments():
     assert Path("/etc").joinpath("init.d", "apache2") == "/etc/init.d/apache2"
+
+
+def test_match_relative_pattern_should_match_relative_path():
+    assert Path("a/b.py").match("*.py")
+
+
+def test_match_relative_pattern_should_match_absolute_path_from_the_right():
+    assert Path("/a/b/c.py").match("b/*.py")
+
+
+def test_match_relative_pattern_should_not_match_absolute_path_from_the_left():
+    assert not Path("/a/b/c.py").match("a/*.py")
+
+
+def test_match_absolute_pattern_should_match_absoluve_path():
+    assert Path("/a.py").match("/*.py")
+
+
+def test_match_absolute_pattern_should_not_match_absoluve_path_partially():
+    assert not Path("a/b.py").match("/*.py")
+
+
+# TODO: case-sensitive match (?)
 
 
 def test_relative_to_target_starting_with_parent_folder_should_fail_when_strict():
