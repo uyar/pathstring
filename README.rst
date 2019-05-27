@@ -17,9 +17,9 @@ Differences from pathlib paths are:
   will also work.
 
 - Adds a ``strict`` parameter to the ``Path.relative_to()`` method
-  which, when set to ``False``, will also navigate up in the hierarchy.
+  which, when set to ``False``, will also navigate "up" in the hierarchy.
 
-- No support the slash operator for joining paths (for now).
+- No support for the slash operator for joining paths (for now).
 
 - No support for case-insensitive equality checks on Windows (for now).
 
