@@ -62,3 +62,27 @@ def test_as_posix_should_use_forward_slashes():
 
 def test_as_uri_should_use_forward_slashes():
     assert Path("c:\\Windows").as_uri() == "file:///c:/Windows"
+
+
+def test_is_absolute_when_starts_with_drive_and_root():
+    assert Path("c:\\a\\b").is_absolute()
+
+
+def test_is_not_absolute_when_no_drive():
+    assert not Path("\\a\\b").is_absolute()
+
+
+def test_is_not_absolute_when_no_root():
+    assert not Path("c:").is_absolute()
+
+
+def test_is_absolute_when_starts_with_unc_share():
+    assert Path("\\\\some\\share").is_absolute()
+
+
+def test_is_reserved_should_be_true_for_reserved_paths():
+    assert Path("nul").is_reserved()
+
+
+def test_is_reserved_should_be_true_for_regular_paths():
+    assert Path("c:\\\\windows").is_reserved()
