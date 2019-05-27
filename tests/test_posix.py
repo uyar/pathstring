@@ -34,3 +34,12 @@ def test_is_not_absolute_when_no_root():
 
 def test_is_reserved_should_be_false():
     assert not Path("nul").is_reserved()
+
+
+def test_stat_should_contain_permissions(fs):
+    assert Path(fs, "file1.txt").stat().st_mode == 33188
+
+
+def test_chmod_should_change_permissions(fs):
+    Path(fs, "file1.txt").chmod(0o444)
+    assert Path(fs, "file1.txt").stat().st_mode == 33060

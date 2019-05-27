@@ -23,4 +23,4 @@ def fs():
 
     yield root
 
-    rmtree(root)
+    rmtree(root, ignore_errors=True)

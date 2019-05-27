@@ -211,15 +211,6 @@ def test_stat_should_contain_modification_time(fs):
     assert time.time() - Path(fs, "file1.txt").stat().st_mtime < 1
 
 
-def test_stat_should_contain_permissions(fs):
-    assert Path(fs, "file1.txt").stat().st_mode == 33188
-
-
-def test_chmod_should_change_permissions(fs):
-    Path(fs, "file1.txt").chmod(0o444)
-    assert Path(fs, "file1.txt").stat().st_mode == 33060
-
-
 def test_exists_should_return_true_for_existing_file(fs):
     assert Path(fs, "file1.txt").exists()
 
