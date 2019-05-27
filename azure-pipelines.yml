@@ -22,14 +22,6 @@ jobs:
         imageName: 'ubuntu-16.04'
         python.version: '3.7'
 
-      windows-py35:
-        imageName: 'vs2017-win2016'
-        python.version: '3.5'
-
-      windows-py36:
-        imageName: 'vs2017-win2016'
-        python.version: '3.6'
-
       windows-py37:
         imageName: 'vs2017-win2016'
         python.version: '3.7'
