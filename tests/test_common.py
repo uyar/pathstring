@@ -120,15 +120,17 @@ def test_stem_should_be_base_name_if_no_suffix():
 
 
 def test_joinpath_should_extend_current_path():
-    assert Path("/etc").joinpath("passwd") == "/etc/passwd"
+    assert Path("/etc").joinpath("passwd") == "/etc/passwd".replace("/", os.path.sep)
 
 
 def test_joinpath_should_extend_current_path_with_path():
-    assert Path("/etc").joinpath(Path("passwd")) == "/etc/passwd"
+    assert Path("/etc").joinpath(Path("passwd")) == "/etc/passwd".replace("/", os.path.sep)
 
 
 def test_joinpath_should_extend_current_path_with_multiple_segments():
-    assert Path("/etc").joinpath("init.d", "apache2") == "/etc/init.d/apache2"
+    assert Path("/etc").joinpath("init.d", "apache2") == "/etc/init.d/apache2".replace(
+        "/", os.path.sep
+    )
 
 
 def test_match_relative_pattern_should_match_relative_path():
@@ -168,7 +170,9 @@ def test_relative_to_requiring_parent_directory_should_fail_when_strict():
 
 
 def test_with_name_should_return_path_with_changed_name():
-    assert Path("/tmp/pathlib.tar.gz").with_name("setup.py") == "/tmp/setup.py"
+    assert Path("/tmp/pathlib.tar.gz").with_name("setup.py") == "/tmp/setup.py".replace(
+        "/", os.path.sep
+    )
 
 
 def test_with_name_should_fail_when_no_name_in_source():
@@ -177,7 +181,9 @@ def test_with_name_should_fail_when_no_name_in_source():
 
 
 def test_with_suffix_should_return_path_with_changed_suffix():
-    assert Path("/tmp/pathlib.tar.gz").with_suffix(".bz2") == "/tmp/pathlib.tar.bz2"
+    assert Path("/tmp/pathlib.tar.gz").with_suffix(".bz2") == "/tmp/pathlib.tar.bz2".replace(
+        "/", os.path.sep
+    )
 
 
 def test_with_suffix_should_add_suffix_when_no_suffix_in_source():
