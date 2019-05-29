@@ -66,3 +66,17 @@ def test_is_mount_should_be_false_for_regular_directories(fs):
 # TODO: ".is_symlink()", ".is_socket()", ".is_fifo()" tests
 # TODO: ".is_block_device()", ".is_char_device()" tests
 # TODO: ".lchmod()", ".lstat()" tests
+
+
+def test_mkdir_should_create_directory_with_default_permissions(fs):
+    path = os.path.join(fs, "tmp")
+    Path(fs, "tmp").mkdir()
+    assert os.stat(path).st_mode == 16877
+    os.rmdir(path)
+
+
+def test_mkdir_should_create_directory_with_given_permissions(fs):
+    path = os.path.join(fs, "tmp")
+    Path(fs, "tmp").mkdir(mode=0o555)
+    assert os.stat(path).st_mode == 16749
+    os.rmdir(path)

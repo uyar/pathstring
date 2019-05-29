@@ -275,7 +275,46 @@ def test_is_file_should_be_false_for_directories(fs):
     assert not Path(fs, "sub").is_file()
 
 
-def test_iterdir_should_return_sequence_of_directory_entries(fs):
+def test_iterdir_should_return_sequence_of_directory_entries_non_recursively(fs):
     assert set(Path(fs).iterdir()) == {
         os.path.join(fs, de) for de in ["file1.txt", "file2.txt", "mod1.py", "sub"]
     }
+
+
+def test_mkdir_should_create_non_existing_directory(fs):
+    path = os.path.join(fs, "tmp")
+    assert not os.path.exists(path)
+    Path(fs, "tmp").mkdir()
+    assert os.path.exists(path)
+    os.rmdir(path)
+
+
+def test_mkdir_should_fail_nested_creation_if_parents_not_set(fs):
+    with raises(FileNotFoundError):
+        Path(fs, "tmp1", "tmp2").mkdir()
+
+
+def test_mkdir_should_succeed_nested_creation_if_parents_set(fs):
+    path1 = os.path.join(fs, "tmp1")
+    path2 = os.path.join(path1, "tmp2")
+    assert not os.path.exists(path1)
+    Path(fs, "tmp1", "tmp2").mkdir(parents=True)
+    assert os.path.exists(path2)
+    os.rmdir(path2)
+    os.rmdir(path1)
+
+
+def test_mkdir_should_fail_for_existing_directory(fs):
+    path = os.path.join(fs, "tmp")
+    os.mkdir(path)
+    with raises(FileExistsError):
+        Path(fs, "tmp").mkdir()
+    os.rmdir(path)
+
+
+def test_mkdir_should_not_fail_for_existing_directory_if_exist_ok_is_set(fs):
+    path = os.path.join(fs, "tmp")
+    os.mkdir(path)
+    Path(fs, "tmp").mkdir(exist_ok=True)
+    assert os.path.exists(path)
+    os.rmdir(path)
