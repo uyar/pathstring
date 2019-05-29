@@ -6,7 +6,7 @@ from shutil import rmtree
 from tempfile import gettempdir
 
 
-@fixture
+@fixture(scope="session")
 def fs():
     """Root directory for test files hierarchy."""
     temp_dir = "/dev/shm"
