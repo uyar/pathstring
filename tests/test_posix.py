@@ -3,12 +3,13 @@ from pytest import mark
 import os
 import sys
 
+if sys.platform != "windows":
+    import grp
+
 from pathstring import Path
 
 
 pytestmark = mark.skipif(sys.platform == "win32", reason="tests for posix only")
-
-import grp
 
 
 def test_multiple_absolute_paths_should_anchor_to_last():
