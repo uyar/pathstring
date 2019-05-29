@@ -3,7 +3,7 @@ from pytest import mark
 import os
 import sys
 
-if sys.platform != "windows":
+if sys.platform != "win32":
     import grp
     import pwd
 
