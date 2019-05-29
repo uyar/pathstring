@@ -257,3 +257,19 @@ def test_glob_should_support_recursive_search_pattern(fs):
         os.path.join(fs, "mod1.py"),
         os.path.join(fs, "sub", "mod2.py"),
     }
+
+
+def test_is_dir_should_be_true_for_directories(fs):
+    assert Path(fs, "sub").is_dir()
+
+
+def test_is_dir_should_be_false_for_files(fs):
+    assert not Path(fs, "file1.txt").is_dir()
+
+
+def test_is_file_should_be_true_for_files(fs):
+    assert Path(fs, "file1.txt").is_file()
+
+
+def test_is_file_should_be_false_for_directories(fs):
+    assert not Path(fs, "sub").is_file()

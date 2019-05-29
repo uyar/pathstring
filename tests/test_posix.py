@@ -1,5 +1,7 @@
 from pytest import mark
 
+import grp
+import os
 import sys
 
 from pathstring import Path
@@ -43,3 +45,7 @@ def test_stat_should_contain_permissions(fs):
 def test_chmod_should_change_permissions(fs):
     Path(fs, "file1.txt").chmod(0o444)
     assert Path(fs, "file1.txt").stat().st_mode == 33060
+
+
+def test_group_should_get_group_name_from_group_database(fs):
+    assert Path(fs, "file1.txt").group() == grp.getgrgid(os.getgid()).gr_name
