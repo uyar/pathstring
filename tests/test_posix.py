@@ -1,6 +1,5 @@
 from pytest import mark
 
-import grp
 import os
 import sys
 
@@ -8,6 +7,8 @@ from pathstring import Path
 
 
 pytestmark = mark.skipif(sys.platform == "win32", reason="tests for posix only")
+
+import grp
 
 
 def test_multiple_absolute_paths_should_anchor_to_last():
@@ -49,3 +50,13 @@ def test_chmod_should_change_permissions(fs):
 
 def test_group_should_get_group_name_from_group_database(fs):
     assert Path(fs, "file1.txt").group() == grp.getgrgid(os.getgid()).gr_name
+
+
+@mark.skipif(sys.version_info < (3, 7), reason="added in python 3.7")
+def test_is_mount_should_be_true_for_mount_points(fs):
+    assert Path("/").is_mount()
+
+
+@mark.skipif(sys.version_info < (3, 7), reason="added in python 3.7")
+def test_is_mount_should_be_false_for_regular_directories(fs):
+    assert not Path(fs).is_mount()

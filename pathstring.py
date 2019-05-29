@@ -30,7 +30,9 @@ def _make_path_type(name):
         return f
 
     def get_method(meth, *, class_method=False, as_path=False):
-        m = getattr(pathlib.Path, meth)
+        m = getattr(pathlib.Path, meth, None)
+        if m is None:
+            return None
 
         def f(*args, **kwargs):
             if not class_method:
@@ -81,7 +83,9 @@ def _make_path_type(name):
         "with_name",
         "with_suffix",
     ]:
-        attrs[method] = get_method(method, as_path=True)
+        meth = get_method(method, as_path=True)
+        if meth is not None:
+            attrs[method] = meth
     for method in [
         "as_posix",
         "as_uri",
@@ -94,6 +98,7 @@ def _make_path_type(name):
         "is_dir",
         "is_fifo",
         "is_file",
+        "is_mount",
         "is_reserved",
         "is_socket",
         "is_symlink",
@@ -115,7 +120,9 @@ def _make_path_type(name):
         "write_bytes",
         "write_text",
     ]:
-        attrs[method] = get_method(method)
+        meth = get_method(method)
+        if meth is not None:
+            attrs[method] = meth
     attrs["relative_to"] = relative_to
     attrs["rmtree"] = shutil.rmtree
 
