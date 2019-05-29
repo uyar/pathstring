@@ -273,3 +273,9 @@ def test_is_file_should_be_true_for_files(fs):
 
 def test_is_file_should_be_false_for_directories(fs):
     assert not Path(fs, "sub").is_file()
+
+
+def test_iterdir_should_return_sequence_of_directory_entries(fs):
+    assert set(Path(fs).iterdir()) == {
+        os.path.join(fs, de) for de in ["file1.txt", "file2.txt", "mod1.py", "sub"]
+    }

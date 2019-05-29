@@ -60,3 +60,8 @@ def test_is_mount_should_be_true_for_mount_points(fs):
 @mark.skipif(sys.version_info < (3, 7), reason="added in python 3.7")
 def test_is_mount_should_be_false_for_regular_directories(fs):
     assert not Path(fs).is_mount()
+
+
+# TODO: ".is_symlink()", ".is_socket()", ".is_fifo()" tests
+# TODO: ".is_block_device()", ".is_char_device()" tests
+# TODO: ".lchmod()", ".lstat()" tests
