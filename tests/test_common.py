@@ -323,3 +323,7 @@ def test_mkdir_should_not_fail_for_existing_directory_if_exist_ok_is_set(fs):
 def test_open_should_open_file_compatible_with_builtin(fs):
     with Path(fs, "file1.txt").open("rb") as f:
         assert f.read() == b"1234"
+
+
+def test_owner_should_get_user_name_from_operating_system(fs):
+    assert Path(fs, "file1.txt").owner() == os.getlogin()
