@@ -232,3 +232,28 @@ def test_expanduser_should_return_path_with_user_home_expanded():
     assert Path("~/films/Monty Python").expanduser() == os.path.join(
         os.path.expanduser("~"), "films", "Monty Python"
     )
+
+
+def test_glob_should_return_sequence_of_matching_file_paths(fs):
+    assert set(Path(fs).glob("*.txt")) == {
+        os.path.join(fs, f) for f in ["file1.txt", "file2.txt"]
+    }
+
+
+def test_glob_should_return_sequence_even_when_only_one_result(fs):
+    assert list(Path(fs).glob("*.py")) == [os.path.join(fs, "mod1.py")]
+
+
+def test_glob_should_return_empty_sequence_even_no_result(fs):
+    assert len(set(Path(fs).glob("*.mp4"))) == 0
+
+
+def test_glob_should_be_able_to_search_in_subdirectories(fs):
+    assert set(Path(fs).glob("*/*.py")) == {os.path.join(fs, "sub", "mod2.py")}
+
+
+def test_glob_should_support_recursive_search_pattern(fs):
+    assert set(Path(fs).glob("**/*.py")) == {
+        os.path.join(fs, "mod1.py"),
+        os.path.join(fs, "sub", "mod2.py"),
+    }

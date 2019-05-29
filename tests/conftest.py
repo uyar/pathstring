@@ -21,6 +21,16 @@ def fs():
     with open(os.path.join(root, "file1.txt"), "wb") as f:
         f.write(b"1234")
 
+    with open(os.path.join(root, "file2.txt"), "wb") as f:
+        f.write(b"")
+
+    with open(os.path.join(root, "mod1.py"), "wb") as f:
+        f.write(b"")
+
+    os.makedirs(os.path.join(root, "sub"))
+    with open(os.path.join(root, "sub", "mod2.py"), "wb") as f:
+        f.write(b"")
+
     yield root
 
     rmtree(root, ignore_errors=True)
