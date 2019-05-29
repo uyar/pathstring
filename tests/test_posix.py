@@ -5,6 +5,7 @@ import sys
 
 if sys.platform != "windows":
     import grp
+    import pwd
 
 from pathstring import Path
 
@@ -80,3 +81,7 @@ def test_mkdir_should_create_directory_with_given_permissions(fs):
     Path(fs, "tmp").mkdir(mode=0o555)
     assert os.stat(path).st_mode == 16749
     os.rmdir(path)
+
+
+def test_owner_should_get_user_name_from_operating_system(fs):
+    assert Path(fs, "file1.txt").owner() == pwd.getpwuid(os.getuid()).pw_name

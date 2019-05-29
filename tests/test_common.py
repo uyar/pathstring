@@ -325,10 +325,6 @@ def test_open_should_open_file_compatible_with_builtin(fs):
         assert f.read() == b"1234"
 
 
-def test_owner_should_get_user_name_from_operating_system(fs):
-    assert Path(fs, "file1.txt").owner() == os.getlogin()
-
-
 def test_read_bytes_should_read_file_as_binary(fs):
     assert Path(fs, "file1.txt").read_bytes() == b"1234"
 
