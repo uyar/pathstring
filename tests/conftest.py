@@ -21,7 +21,7 @@ def fs():
     with open(os.path.join(root, "file1.txt"), "wb") as f:
         f.write(b"1234")
 
-    with open(os.path.join(root, "file2.txt"), "w") as f:
+    with open(os.path.join(root, "file2.txt"), "w", encoding="utf-8") as f:
         f.write("yağış")
 
     with open(os.path.join(root, "mod1.py"), "wb") as f:

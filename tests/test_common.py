@@ -330,4 +330,4 @@ def test_read_bytes_should_read_file_as_binary(fs):
 
 
 def test_read_text_should_read_text_as_str(fs):
-    assert Path(fs, "file2.txt").read_text() == "yağış"
+    assert Path(fs, "file2.txt").read_text(encoding="utf-8") == "yağış"
