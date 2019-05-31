@@ -397,6 +397,18 @@ def test_rglob_should_search_recursively(fs):
     }
 
 
+def test_rmdir_should_remove_empty_directory(fs):
+    sub2 = os.path.join(fs, "sub2")
+    os.mkdir(sub2)
+    Path(fs, "sub2").rmdir()
+    assert not os.path.exists(sub2)
+
+
+def test_rmdir_should_not_remove_nonempty_directory(fs):
+    with raises(OSError):
+        Path(fs, "sub1").rmdir()
+
+
 def test_symlink_to_should_create_symbolic_link(fs):
     link2 = os.path.join(fs, "link2")
     Path(link2).symlink_to(Path(fs, "file2.txt"))
