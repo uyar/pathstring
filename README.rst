@@ -19,8 +19,6 @@ Differences from pathlib paths are:
 - Adds a ``strict`` parameter to the ``Path.relative_to()`` method
   which, when set to ``False``, will also navigate "up" in the hierarchy.
 
-- No support for the slash operator for joining paths (for now).
-
 - No support for case-insensitive comparisons on Windows.
 
 - No ``Path.replace()`` method since it would cause confusion with

@@ -40,7 +40,16 @@ def test_double_dots_should_not_be_collapsed():
     assert Path("foo/../bar") == "foo/../bar".replace("/", os.path.sep)
 
 
-# TODO: truediv (?)
+def test_slash_operator_should_create_child_paths():
+    assert Path("/etc") / "init.d" / "apache2" == "/etc/init.d/apache2"
+
+
+def test_slash_operator_should_accept_paths_as_segments():
+    assert Path("/usr") / Path("bin") == "/usr/bin"
+
+
+def test_slash_operator_should_accept_paths_on_rhs():
+    assert "/usr" / Path("bin") == "/usr/bin"
 
 
 def test_parts_should_be_a_sequence_of_components():

@@ -4,6 +4,7 @@ History
 0.2.1 (unreleased)
 ------------------
 
+- Added support for slash operator.
 - Bug fixes.
 
 0.2.0 (2019-05-22)

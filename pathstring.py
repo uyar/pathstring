@@ -73,6 +73,8 @@ def _make_path_type(name):
     for method in ["cwd", "home"]:
         attrs[method] = get_method(method, class_method=True, as_path=True)
     for method in [
+        "__truediv__",
+        "__rtruediv__",
         "absolute",
         "expanduser",
         "glob",
