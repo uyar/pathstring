@@ -11,15 +11,15 @@ jobs:
   strategy:
     matrix:
       linux-py35:
-        imageName: 'ubuntu-16.04'
+        imageName: 'ubuntu-latest'
         python.version: '3.5'
 
       linux-py36:
-        imageName: 'ubuntu-16.04'
+        imageName: 'ubuntu-latest'
         python.version: '3.6'
 
       linux-py37:
-        imageName: 'ubuntu-16.04'
+        imageName: 'ubuntu-latest'
         python.version: '3.7'
 
       windows-py37:
@@ -50,7 +50,7 @@ jobs:
   strategy:
     matrix:
       linux-py36:
-        imageName: 'ubuntu-16.04'
+        imageName: 'ubuntu-latest'
         python.version: '3.6'
 
   pool:
