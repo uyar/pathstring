@@ -424,3 +424,26 @@ def test_symlink_to_should_create_symbolic_link(fs):
     with open(link2, "r", encoding="utf-8") as f:
         content = f.read()
     assert content == "abcöüçğış"
+
+
+def test_touch_should_create_empty_file(fs):
+    path = os.path.join(fs, "tmp")
+    assert not os.path.exists(path)
+    Path(path).touch()
+    assert os.path.exists(path)
+    assert os.stat(path).st_size == 0
+    os.unlink(path)
+
+
+def test_touch_should_fail_for_existing_file_if_exist_ok_is_false(fs):
+    path = os.path.join(fs, "file1.txt")
+    with raises(FileExistsError):
+        Path(path).touch(exist_ok=False)
+
+
+def test_touch_should_change_mtime_of_existing_file(fs):
+    path = os.path.join(fs, "file1.txt")
+    mtime1 = os.stat(path).st_mtime
+    Path(path).touch()
+    mtime2 = os.stat(path).st_mtime
+    assert mtime2 > mtime1

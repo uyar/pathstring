@@ -49,6 +49,8 @@ def test_stat_should_contain_permissions(fs):
 def test_chmod_should_change_permissions(fs):
     Path(fs, "file1.txt").chmod(0o444)
     assert Path(fs, "file1.txt").stat().st_mode == 33060
+    Path(fs, "file1.txt").chmod(0o644)
+    assert Path(fs, "file1.txt").stat().st_mode == 33188
 
 
 def test_group_should_get_group_name_from_group_database(fs):
@@ -104,3 +106,6 @@ def test_symlink_to_directory_should_create_symbolic_link(fs):
     sublink1 = os.path.join(fs, "sublink1")
     Path(sublink1).symlink_to(Path(fs, "sub1"))
     assert os.path.exists(os.path.join(sublink1, "mod2.py"))
+
+
+# TODO: Add test for touch with mode
