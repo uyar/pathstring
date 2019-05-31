@@ -409,6 +409,14 @@ def test_rmdir_should_not_remove_nonempty_directory(fs):
         Path(fs, "sub1").rmdir()
 
 
+def test_samefile_should_return_true_for_same_target(fs):
+    assert Path(fs, "link1").samefile(Path(fs, "file1.txt"))
+
+
+def test_samefile_should_return_false_for_different_targets(fs):
+    assert not Path(fs, "link1").samefile(Path(fs, "file2.txt"))
+
+
 def test_symlink_to_should_create_symbolic_link(fs):
     link2 = os.path.join(fs, "link2")
     Path(link2).symlink_to(Path(fs, "file2.txt"))
