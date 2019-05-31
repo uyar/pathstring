@@ -466,13 +466,6 @@ def test_unlink_should_remove_symlink(fs):
     assert os.path.exists(file2)
 
 
-def test_unlink_should_not_remove_directory_even_if_empty(fs):
-    sub2 = os.path.join(fs, "sub2")
-    os.mkdir(sub2)
-    with raises(IsADirectoryError):
-        Path(sub2).unlink()
-
-
 def test_unlink_should_fail_for_nonexisting_path(fs):
     with raises(FileNotFoundError):
         Path(fs, "file0.txt").unlink()

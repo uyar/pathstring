@@ -113,3 +113,10 @@ def test_symlink_to_directory_should_create_symbolic_link(fs):
     sublink1 = os.path.join(fs, "sublink1")
     Path(sublink1).symlink_to(Path(fs, "sub1"), target_is_directory=True)
     assert os.path.exists(os.path.join(sublink1, "mod2.py"))
+
+
+def test_unlink_should_not_remove_directory_even_if_empty(fs):
+    sub2 = os.path.join(fs, "sub2")
+    os.mkdir(sub2)
+    with raises(PermissionError):
+        Path(sub2).unlink()

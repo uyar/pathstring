@@ -1,4 +1,4 @@
-from pytest import mark
+from pytest import mark, raises
 
 import os
 import shutil
@@ -109,3 +109,10 @@ def test_symlink_to_directory_should_create_symbolic_link(fs):
 
 
 # TODO: Add test for touch with mode
+
+
+def test_unlink_should_not_remove_directory_even_if_empty(fs):
+    sub2 = os.path.join(fs, "sub2")
+    os.mkdir(sub2)
+    with raises(IsADirectoryError):
+        Path(sub2).unlink()
