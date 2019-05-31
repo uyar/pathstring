@@ -492,3 +492,38 @@ def test_write_text_should_write_text_as_str(fs):
     with open(path, "r", encoding="utf-8") as f:
         content = f.read()
     assert content == "abcöüçğış"
+
+
+def test_rmtree_should_remove_tree_recursively(fs):
+    tmp1 = os.path.join(fs, "tmp1")
+    os.mkdir(tmp1)
+    tmp2 = os.path.join(tmp1, "tmp2")
+    os.mkdir(tmp2)
+    tmp3 = os.path.join(tmp2, "tmp3.txt")
+    shutil.copyfile(os.path.join(fs, "file1.txt"), tmp3)
+    Path(tmp2).rmtree()
+    assert not os.path.exists(tmp2)
+    assert os.path.exists(tmp1)
+    os.rmdir(tmp1)
+
+
+def test_shutil_rmtree_should_take_path_as_parameter(fs):
+    tmp1 = os.path.join(fs, "tmp1")
+    os.mkdir(tmp1)
+    tmp2 = os.path.join(tmp1, "tmp2")
+    os.mkdir(tmp2)
+    tmp3 = os.path.join(tmp2, "tmp3.txt")
+    shutil.copyfile(os.path.join(fs, "file1.txt"), tmp3)
+    shutil.rmtree(Path(tmp2))
+    assert not os.path.exists(tmp2)
+    assert os.path.exists(tmp1)
+    os.rmdir(tmp1)
+
+
+def test_rmtree_should_fail_for_nonexisting_directory(fs):
+    with raises(FileNotFoundError):
+        Path(fs, "tmp1").rmtree()
+
+
+def test_rmtree_should_not_fail_for_nonexisting_directory_if_ignoring_errors(fs):
+    Path(fs, "tmp1").rmtree(ignore_errors=True)
