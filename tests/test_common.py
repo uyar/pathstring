@@ -365,12 +365,12 @@ def test_rename_should_rename_file_for_nonexisting_target(fs):
     os.unlink(dst)
 
 
-def test_resolve_should_resolve_symbolic_link(fs):
-    assert Path(fs, "link1").resolve() == Path(fs, "file1.txt")
-
-
 def test_resolve_should_return_absolute_path(fs):
     assert Path().resolve() == os.getcwd()
+
+
+def test_resolve_should_resolve_symbolic_link(fs):
+    assert Path(fs, "link1").resolve() == os.path.abspath(os.path.join(fs, "file1.txt"))
 
 
 @mark.skipif(sys.version_info < (3, 6), reason="strict in python 3.5")
