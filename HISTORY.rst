@@ -1,8 +1,8 @@
 History
 =======
 
-0.2.1 (unreleased)
-------------------
+1.0.0.b1 (2019-05-31)
+---------------------
 
 - Added support for slash operator.
 - Bug fixes.

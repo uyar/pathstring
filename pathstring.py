@@ -13,7 +13,7 @@ from inspect import signature
 from itertools import dropwhile, zip_longest
 
 
-__version__ = "1.0.0.dev0"
+__version__ = "1.0.0b0"
 
 
 def _make_path_type(name):

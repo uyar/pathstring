@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pathstring"
-version = "1.0.0.dev0"
+version = "1.0.0b0"
 description = "String with path operations."
 readme = "README.rst"
 
