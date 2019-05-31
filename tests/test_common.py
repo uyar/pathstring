@@ -355,3 +355,10 @@ def test_rename_should_rename_file_for_nonexisting_target(fs):
     for path in [p for p in [src, dst] if os.path.exists(p)]:
         os.unlink(path)
     assert content == b"foo"
+
+
+def test_rglob_should_search_recursively(fs):
+    assert set(Path(fs).rglob("*.py")) == {
+        os.path.join(fs, "mod1.py"),
+        os.path.join(fs, "sub", "mod2.py"),
+    }
