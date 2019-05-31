@@ -475,4 +475,20 @@ def test_unlink_should_not_remove_directory_even_if_empty(fs):
 
 def test_unlink_should_fail_for_nonexisting_path(fs):
     with raises(FileNotFoundError):
-        Path(fs, "file3.txt").unlink()
+        Path(fs, "file0.txt").unlink()
+
+
+def test_write_bytes_should_write_file_as_binary(fs):
+    path = os.path.join(fs, "file3.txt")
+    Path(path).write_bytes(b"file3")
+    with open(path, "rb") as f:
+        content = f.read()
+    assert content == b"file3"
+
+
+def test_write_text_should_write_text_as_str(fs):
+    path = os.path.join(fs, "file3.txt")
+    Path(path).write_text("abcöüçğış", encoding="utf-8")
+    with open(path, "r", encoding="utf-8") as f:
+        content = f.read()
+    assert content == "abcöüçğış"
