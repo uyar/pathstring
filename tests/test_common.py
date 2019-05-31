@@ -424,6 +424,7 @@ def test_symlink_to_should_create_symbolic_link(fs):
     with open(link2, "r", encoding="utf-8") as f:
         content = f.read()
     assert content == "abcöüçğış"
+    os.unlink(link2)
 
 
 def test_touch_should_create_empty_file(fs):
@@ -447,3 +448,31 @@ def test_touch_should_change_mtime_of_existing_file(fs):
     Path(path).touch()
     mtime2 = os.stat(path).st_mtime
     assert mtime2 > mtime1
+
+
+def test_unlink_should_remove_file(fs):
+    src = os.path.join(fs, "copy1.txt")
+    shutil.copyfile(os.path.join(fs, "file1.txt"), src)
+    Path(src).unlink()
+    assert not os.path.exists(src)
+
+
+def test_unlink_should_remove_symlink(fs):
+    file2 = os.path.join(fs, "file2.txt")
+    link2 = os.path.join(fs, "link2")
+    os.symlink(file2, link2)
+    Path(link2).unlink()
+    assert not os.path.exists(link2)
+    assert os.path.exists(file2)
+
+
+def test_unlink_should_not_remove_directory_even_if_empty(fs):
+    sub2 = os.path.join(fs, "sub2")
+    os.mkdir(sub2)
+    with raises(IsADirectoryError):
+        Path(sub2).unlink()
+
+
+def test_unlink_should_fail_for_nonexisting_path(fs):
+    with raises(FileNotFoundError):
+        Path(fs, "file3.txt").unlink()
