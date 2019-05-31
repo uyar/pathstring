@@ -3,11 +3,11 @@ from pytest import mark
 import os
 import sys
 
+from pathstring import Path
+
 if sys.platform != "win32":
     import grp
     import pwd
-
-from pathstring import Path
 
 
 pytestmark = mark.skipif(sys.platform == "win32", reason="tests for posix only")
