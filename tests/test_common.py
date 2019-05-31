@@ -369,8 +369,9 @@ def test_resolve_should_return_absolute_path(fs):
     assert Path().resolve() == os.getcwd()
 
 
+@mark.skipif(sys.platform == "win32", reason="fails due to shortening of path")
 def test_resolve_should_resolve_symbolic_link(fs):
-    assert Path(fs, "link1").resolve() == os.path.abspath(os.path.join(fs, "file1.txt"))
+    assert Path(fs, "link1").resolve() == os.path.join(fs, "file1.txt")
 
 
 @mark.skipif(sys.version_info < (3, 6), reason="strict in python 3.5")
