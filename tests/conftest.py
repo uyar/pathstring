@@ -37,6 +37,9 @@ def fs():
     with open(mod2, "wb") as f:
         f.write(b"sub1.mod2")
 
+    link1 = os.path.join(root, "link1")
+    os.symlink(file1, link1)
+
     yield root
 
     rmtree(root, ignore_errors=True)

@@ -1,7 +1,8 @@
-from pytest import raises
+from pytest import mark, raises
 
 import os
 import shutil
+import sys
 import time
 
 from pkg_resources import get_distribution
@@ -287,9 +288,17 @@ def test_is_file_should_be_false_for_directories(fs):
     assert not Path(fs, "sub1").is_file()
 
 
+def test_is_symlink_should_be_true_for_symlinks(fs):
+    assert Path(fs, "link1").is_symlink()
+
+
+def test_is_symlink_should_be_false_for_files(fs):
+    assert not Path(fs, "file1.txt").is_symlink()
+
+
 def test_iterdir_should_return_sequence_of_directory_entries_non_recursively(fs):
     assert set(Path(fs).iterdir()) == {
-        os.path.join(fs, de) for de in ["file1.txt", "file2.txt", "mod1.py", "sub1"]
+        os.path.join(fs, de) for de in ["file1.txt", "file2.txt", "mod1.py", "link1", "sub1"]
     }
 
 
@@ -356,8 +365,41 @@ def test_rename_should_rename_file_for_nonexisting_target(fs):
     os.unlink(dst)
 
 
+def test_resolve_should_resolve_symbolic_link(fs):
+    assert Path(fs, "link1").resolve() == Path(fs, "file1.txt")
+
+
+def test_resolve_should_return_absolute_path(fs):
+    assert Path().resolve() == os.getcwd()
+
+
+@mark.skipif(sys.version_info < (3, 6), reason="strict in python 3.5")
+def test_resolve_should_eliminate_pardir(fs):
+    assert Path("docs/../setup.py").resolve() == os.path.join(os.getcwd(), "setup.py")
+
+
+@mark.skipif(sys.version_info < (3, 6), reason="added in python 3.6")
+def test_resolve_should_fail_for_nonexisting_path_when_strict(fs):
+    with raises(FileNotFoundError):
+        Path("docs/../setup.py").resolve(strict=True)
+
+
+@mark.skipif(sys.version_info >= (3, 6), reason="strict in python 3.5")
+def test_resolve_should_fail_for_nonexisting_path(fs):
+    with raises(FileNotFoundError):
+        Path("docs/../setup.py").resolve()
+
+
 def test_rglob_should_search_recursively(fs):
     assert set(Path(fs).rglob("*.py")) == {
         os.path.join(fs, "mod1.py"),
         os.path.join(fs, "sub1", "mod2.py"),
     }
+
+
+def test_symlink_to_should_create_symbolic_link(fs):
+    link2 = os.path.join(fs, "link2")
+    Path(link2).symlink_to(Path(fs, "file2.txt"))
+    with open(link2, "r", encoding="utf-8") as f:
+        content = f.read()
+    assert content == "abcöüçğış"

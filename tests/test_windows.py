@@ -107,3 +107,9 @@ def test_rename_should_fail_for_existing_target(fs):
     with raises(FileExistsError):
         Path(src).rename(Path(dst))
     os.unlink(src)
+
+
+def test_symlink_to_directory_should_create_symbolic_link(fs):
+    sublink1 = os.path.join(fs, "sublink1")
+    Path(sublink1).symlink_to(Path(fs, "sub1"), target_is_directory=True)
+    assert os.path.exists(os.path.join(sublink1, "mod2.py"))
