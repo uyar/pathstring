@@ -85,3 +85,18 @@ def test_mkdir_should_create_directory_with_given_permissions(fs):
 
 def test_owner_should_get_user_name_from_operating_system(fs):
     assert Path(fs, "file1.txt").owner() == pwd.getpwuid(os.getuid()).pw_name
+
+
+def test_rename_should_overwrite_existing_target(fs):
+    src = os.path.join(fs, "foo")
+    dst = os.path.join(fs, "bar")
+    with open(src, "wb") as f:
+        f.write(b"foo")
+    with open(dst, "wb") as f:
+        f.write(b"bar")
+    Path(fs, "foo").rename(Path(fs, "bar"))
+    with open(dst, "rb") as f:
+        content = f.read()
+    for path in [p for p in [src, dst] if os.path.exists(p)]:
+        os.unlink(path)
+    assert content == b"foo"

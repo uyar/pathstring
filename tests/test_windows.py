@@ -1,5 +1,6 @@
 from pytest import mark, raises
 
+import os
 import sys
 
 from pathstring import Path
@@ -95,3 +96,16 @@ def test_joinpath_should_extend_drive_with_path():
 def test_relative_to_on_different_drive_should_fail_even_when_not_strict():
     with raises(ValueError):
         Path("c:\\windows").relative_to(Path("d:\\"), strict=False)
+
+
+def test_rename_should_fail_for_existing_target(fs):
+    src = os.path.join(fs, "foo")
+    dst = os.path.join(fs, "bar")
+    with open(src, "wb") as f:
+        f.write(b"foo")
+    with open(dst, "wb") as f:
+        f.write(b"bar")
+    with raises(FileExistsError):
+        Path(fs, "foo").rename(Path(fs, "bar"))
+    for path in [p for p in [src, dst] if os.path.exists(p)]:
+        os.unlink(path)
