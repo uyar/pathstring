@@ -224,7 +224,7 @@ def test_home_should_return_home_directory_of_current_user():
 
 
 def test_stat_should_contain_file_size(fs):
-    assert Path(fs, "file1.txt").stat().st_size == 4
+    assert Path(fs, "file1.txt").stat().st_size == 5
 
 
 def test_stat_should_contain_modification_time(fs):
@@ -333,11 +333,11 @@ def test_mkdir_should_not_fail_for_existing_directory_if_exist_ok_is_set(fs):
 
 def test_open_should_open_file_compatible_with_builtin(fs):
     with Path(fs, "file1.txt").open("rb") as f:
-        assert f.read() == b"1234"
+        assert f.read() == b"file1"
 
 
 def test_read_bytes_should_read_file_as_binary(fs):
-    assert Path(fs, "file1.txt").read_bytes() == b"1234"
+    assert Path(fs, "file1.txt").read_bytes() == b"file1"
 
 
 def test_read_text_should_read_text_as_str(fs):

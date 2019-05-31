@@ -19,17 +19,17 @@ def fs():
     os.makedirs(root)
 
     with open(os.path.join(root, "file1.txt"), "wb") as f:
-        f.write(b"1234")
+        f.write(b"file1")
 
     with open(os.path.join(root, "file2.txt"), "w", encoding="utf-8") as f:
         f.write("yağış")
 
     with open(os.path.join(root, "mod1.py"), "wb") as f:
-        f.write(b"")
+        f.write(b"mod1")
 
     os.makedirs(os.path.join(root, "sub"))
     with open(os.path.join(root, "sub", "mod2.py"), "wb") as f:
-        f.write(b"")
+        f.write(b"sub.mod2")
 
     yield root
 
