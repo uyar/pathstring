@@ -260,18 +260,18 @@ def test_glob_should_return_empty_sequence_even_no_result(fs):
 
 
 def test_glob_should_be_able_to_search_in_subdirectories(fs):
-    assert set(Path(fs).glob("*/*.py")) == {os.path.join(fs, "sub", "mod2.py")}
+    assert set(Path(fs).glob("*/*.py")) == {os.path.join(fs, "sub1", "mod2.py")}
 
 
 def test_glob_should_support_recursive_search_pattern(fs):
     assert set(Path(fs).glob("**/*.py")) == {
         os.path.join(fs, "mod1.py"),
-        os.path.join(fs, "sub", "mod2.py"),
+        os.path.join(fs, "sub1", "mod2.py"),
     }
 
 
 def test_is_dir_should_be_true_for_directories(fs):
-    assert Path(fs, "sub").is_dir()
+    assert Path(fs, "sub1").is_dir()
 
 
 def test_is_dir_should_be_false_for_files(fs):
@@ -283,12 +283,12 @@ def test_is_file_should_be_true_for_files(fs):
 
 
 def test_is_file_should_be_false_for_directories(fs):
-    assert not Path(fs, "sub").is_file()
+    assert not Path(fs, "sub1").is_file()
 
 
 def test_iterdir_should_return_sequence_of_directory_entries_non_recursively(fs):
     assert set(Path(fs).iterdir()) == {
-        os.path.join(fs, de) for de in ["file1.txt", "file2.txt", "mod1.py", "sub"]
+        os.path.join(fs, de) for de in ["file1.txt", "file2.txt", "mod1.py", "sub1"]
     }
 
 
@@ -341,7 +341,7 @@ def test_read_bytes_should_read_file_as_binary(fs):
 
 
 def test_read_text_should_read_text_as_str(fs):
-    assert Path(fs, "file2.txt").read_text(encoding="utf-8") == "yağış"
+    assert Path(fs, "file2.txt").read_text(encoding="utf-8") == "abcöüçğış"
 
 
 def test_rename_should_rename_file_for_nonexisting_target(fs):
@@ -360,5 +360,5 @@ def test_rename_should_rename_file_for_nonexisting_target(fs):
 def test_rglob_should_search_recursively(fs):
     assert set(Path(fs).rglob("*.py")) == {
         os.path.join(fs, "mod1.py"),
-        os.path.join(fs, "sub", "mod2.py"),
+        os.path.join(fs, "sub1", "mod2.py"),
     }

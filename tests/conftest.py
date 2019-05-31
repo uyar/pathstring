@@ -18,18 +18,24 @@ def fs():
     os.umask(0o022)
     os.makedirs(root)
 
-    with open(os.path.join(root, "file1.txt"), "wb") as f:
+    file1 = os.path.join(root, "file1.txt")
+    with open(file1, "wb") as f:
         f.write(b"file1")
 
-    with open(os.path.join(root, "file2.txt"), "w", encoding="utf-8") as f:
-        f.write("yağış")
+    file2 = os.path.join(root, "file2.txt")
+    with open(file2, "w", encoding="utf-8") as f:
+        f.write("abcöüçğış")
 
-    with open(os.path.join(root, "mod1.py"), "wb") as f:
+    mod1 = os.path.join(root, "mod1.py")
+    with open(mod1, "wb") as f:
         f.write(b"mod1")
 
-    os.makedirs(os.path.join(root, "sub"))
-    with open(os.path.join(root, "sub", "mod2.py"), "wb") as f:
-        f.write(b"sub.mod2")
+    sub1 = os.path.join(root, "sub1")
+    os.makedirs(sub1)
+
+    mod2 = os.path.join(sub1, "mod2.py")
+    with open(mod2, "wb") as f:
+        f.write(b"sub1.mod2")
 
     yield root
 
