@@ -1,6 +1,7 @@
 from pytest import mark
 
 import os
+import shutil
 import sys
 
 from pathstring import Path
@@ -88,15 +89,12 @@ def test_owner_should_get_user_name_from_operating_system(fs):
 
 
 def test_rename_should_overwrite_existing_target(fs):
-    src = os.path.join(fs, "foo")
-    dst = os.path.join(fs, "bar")
-    with open(src, "wb") as f:
-        f.write(b"foo")
-    with open(dst, "wb") as f:
-        f.write(b"bar")
-    Path(fs, "foo").rename(Path(fs, "bar"))
+    src = os.path.join(fs, "copy1.txt")
+    shutil.copyfile(os.path.join(fs, "file1.txt"), src)
+    dst = os.path.join(fs, "copy2.txt")
+    shutil.copyfile(os.path.join(fs, "file2.txt"), dst)
+    Path(src).rename(Path(dst))
     with open(dst, "rb") as f:
         content = f.read()
-    for path in [p for p in [src, dst] if os.path.exists(p)]:
-        os.unlink(path)
-    assert content == b"foo"
+    assert content == b"file1"
+    os.unlink(dst)

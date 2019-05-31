@@ -1,6 +1,7 @@
 from pytest import mark, raises
 
 import os
+import shutil
 import sys
 
 from pathstring import Path
@@ -99,13 +100,10 @@ def test_relative_to_on_different_drive_should_fail_even_when_not_strict():
 
 
 def test_rename_should_fail_for_existing_target(fs):
-    src = os.path.join(fs, "foo")
-    dst = os.path.join(fs, "bar")
-    with open(src, "wb") as f:
-        f.write(b"foo")
-    with open(dst, "wb") as f:
-        f.write(b"bar")
+    src = os.path.join(fs, "copy1.txt")
+    shutil.copyfile(os.path.join(fs, "file1.txt"), src)
+    dst = os.path.join(fs, "copy2.txt")
+    shutil.copyfile(os.path.join(fs, "file2.txt"), dst)
     with raises(FileExistsError):
-        Path(fs, "foo").rename(Path(fs, "bar"))
-    for path in [p for p in [src, dst] if os.path.exists(p)]:
-        os.unlink(path)
+        Path(src).rename(Path(dst))
+    os.unlink(src)
