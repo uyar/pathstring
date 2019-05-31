@@ -12,8 +12,8 @@
     :target: https://pypi.org/project/pathstring/
     :alt: Project license.
 
-.. |pipelines| image:: https://dev.azure.com/uyar0839/pathstring/_apis/build/status/uyar.pathstring?branchName=master
-    :target: https://dev.azure.com/uyar0839/pathstring/_build
+.. |pipelines| image:: https://dev.azure.com/tekir/pathstring/_apis/build/status/uyar.pathstring?branchName=master
+    :target: https://dev.azure.com/tekir/pathstring/_build
     :alt: Azure Pipelines build status.
 
 .. |black| image:: https://img.shields.io/badge/code%20style-black-000000.svg?style=flat-square
