@@ -331,3 +331,31 @@ def test_read_bytes_should_read_file_as_binary(fs):
 
 def test_read_text_should_read_text_as_str(fs):
     assert Path(fs, "file2.txt").read_text(encoding="utf-8") == "yağış"
+
+
+def test_rename_should_rename_file_for_nonexisting_target(fs):
+    src = os.path.join(fs, "foo")
+    dst = os.path.join(fs, "bar")
+    with open(src, "wb") as f:
+        f.write(b"foo")
+    Path(fs, "foo").rename(Path(fs, "bar"))
+    with open(dst, "rb") as f:
+        content = f.read()
+    for path in [p for p in [src, dst] if os.path.exists(p)]:
+        os.unlink(path)
+    assert content == b"foo"
+
+
+def test_rename_should_overwrite_existing_target(fs):
+    src = os.path.join(fs, "foo")
+    dst = os.path.join(fs, "bar")
+    with open(src, "wb") as f:
+        f.write(b"foo")
+    with open(dst, "wb") as f:
+        f.write(b"bar")
+    Path(fs, "foo").rename(Path(fs, "bar"))
+    with open(dst, "rb") as f:
+        content = f.read()
+    for path in [p for p in [src, dst] if os.path.exists(p)]:
+        os.unlink(path)
+    assert content == b"foo"
