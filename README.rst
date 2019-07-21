@@ -1,10 +1,10 @@
-|pypi| |support| |license| |pipelines| |black|
+|pypi| |pyversions| |license| |pipelines|
 
 .. |pypi| image:: https://img.shields.io/pypi/v/pathstring.svg?style=flat-square
     :target: https://pypi.org/project/pathstring/
     :alt: PyPI version.
 
-.. |support| image:: https://img.shields.io/pypi/pyversions/pathstring.svg?style=flat-square
+.. |pyversions| image:: https://img.shields.io/pypi/pyversions/pathstring.svg?style=flat-square
     :target: https://pypi.org/project/pathstring/
     :alt: Supported Python versions.
 
@@ -15,11 +15,6 @@
 .. |pipelines| image:: https://dev.azure.com/tekir/pathstring/_apis/build/status/uyar.pathstring?branchName=master
     :target: https://dev.azure.com/tekir/pathstring/_build
     :alt: Azure Pipelines build status.
-
-.. |black| image:: https://img.shields.io/badge/code%20style-black-000000.svg?style=flat-square
-    :target: https://github.com/python/black
-    :alt: Code formatted by Black.
-
 
 pathstring is a very small module that provides only one class
 (``pathstring.Path``) which is a string with support for path operations.
