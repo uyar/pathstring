@@ -72,3 +72,11 @@ jobs:
 
   - script: tox -e style
     displayName: 'Run flake8'
+
+schedules:
+- cron: "0 12 * * 0"
+  displayName: Weekly Sunday build
+  branches:
+    include:
+    - master
+  always: true
