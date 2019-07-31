@@ -1,4 +1,4 @@
-|pypi| |pyversions| |license| |pipelines|
+|pypi| |pyversions| |license| |azure|
 
 .. |pypi| image:: https://img.shields.io/pypi/v/pathstring.svg?style=flat-square
     :target: https://pypi.org/project/pathstring/
@@ -9,10 +9,10 @@
     :alt: Supported Python versions.
 
 .. |license| image:: https://img.shields.io/pypi/l/pathstring.svg?style=flat-square
-    :target: https://pypi.org/project/pathstring/
+    :target: https://github.com/uyar/pathstring/blob/master/LICENSE.txt
     :alt: Project license.
 
-.. |pipelines| image:: https://dev.azure.com/tekir/pathstring/_apis/build/status/uyar.pathstring?branchName=master
+.. |azure| image:: https://dev.azure.com/tekir/pathstring/_apis/build/status/uyar.pathstring?branchName=master
     :target: https://dev.azure.com/tekir/pathstring/_build
     :alt: Azure Pipelines build status.
 
