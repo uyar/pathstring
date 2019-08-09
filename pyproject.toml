@@ -40,7 +40,7 @@ line-length = 96
 [tool.tox]
 legacy_tox_ini = """
 [tox]
-envlist = py{37,36,35}, pypy{36,35}, style
+envlist = py{37,36,35}, style
 isolated_build = True
 
 [testenv]
