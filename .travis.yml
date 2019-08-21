@@ -1,0 +1,15 @@
+language: python
+dist: xenial
+python:
+  - "3.5"
+  - "3.6"
+  - "3.7"
+install:
+  - python -m pip install poetry
+  - python -m pip install tox
+script:
+  - tox -e py
+notifications:
+  email:
+    on_success: never
+    on_failure: always
