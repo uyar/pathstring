@@ -31,8 +31,8 @@ include = ["HISTORY.rst", "*.pyi", "tests/**/*.py"]
 python = "^3.5"
 
 [tool.poetry.dev-dependencies]
-pytest = "^5.0"
-flake8 = "^3.6"
+pytest = "^5.1.1"
+flake8 = "^3.7.8"
 
 [tool.black]
 line-length = 96
