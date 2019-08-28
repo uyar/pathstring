@@ -45,9 +45,9 @@ jobs:
 - job: style
   strategy:
     matrix:
-      linux-py36:
+      linux-py37:
         imageName: 'ubuntu-latest'
-        python.version: '3.6'
+        python.version: '3.7'
 
   pool:
     vmImage: $(imageName)
