@@ -36,10 +36,6 @@ jobs:
     displayName: 'Use Python $(python.version)'
 
   - script: |
-      python -m pip install --upgrade poetry
-    displayName: 'Install poetry'
-
-  - script: |
       python -m pip install --upgrade tox
     displayName: 'Install tox'
 
@@ -61,10 +57,6 @@ jobs:
     inputs:
       versionSpec: '$(python.version)'
     displayName: 'Use Python $(python.version)'
-
-  - script: |
-      python -m pip install --upgrade poetry
-    displayName: 'Install poetry'
 
   - script: |
       python -m pip install --upgrade tox
