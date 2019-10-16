@@ -46,9 +46,9 @@ isolated_build = True
 
 [testenv]
 deps =
-    pytest==5.1.1
+    pytest~=5.1
 commands =
-    {posargs:pytest}
+    {posargs:pytest} tests/
 
 [testenv:pypy36]
 basepython = pypy3.6
@@ -56,7 +56,7 @@ basepython = pypy3.6
 [testenv:style]
 basepython = python3.7
 deps =
-    flake8==3.7.8
+    flake8~=3.7
 commands =
     {posargs:flake8} pathstring.py
 """
