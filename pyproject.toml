@@ -48,7 +48,7 @@ isolated_build = True
 deps =
     pytest~=5.1
 commands =
-    {posargs:pytest} tests/
+    pytest {posargs}
 
 [testenv:pypy36]
 basepython = pypy3.6
@@ -58,7 +58,7 @@ basepython = python3.7
 deps =
     flake8~=3.7
 commands =
-    {posargs:flake8} pathstring.py
+    flake8 pathstring.py
 """
 
 [build-system]
