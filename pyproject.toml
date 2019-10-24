@@ -48,7 +48,7 @@ isolated_build = True
 deps =
     pytest~=5.1
 commands =
-    pytest {posargs}
+    pytest {posargs:tests}
 
 [testenv:pypy36]
 basepython = pypy3.6
