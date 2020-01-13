@@ -34,6 +34,8 @@ python = "^3.5"
 [tool.poetry.dev-dependencies]
 pytest = "^5.1.1"
 flake8 = "^3.7.8"
+black = {version = "^19.10b0", python = "^3.6"}
+tox = "^3.14.3"
 
 [tool.black]
 line-length = 96
@@ -41,22 +43,19 @@ line-length = 96
 [tool.tox]
 legacy_tox_ini = """
 [tox]
-envlist = py{38,37,36,35}, pypy{36,35}, style
+envlist = py{38,37,36,35}, pypy3, style
 isolated_build = True
 
 [testenv]
 deps =
-    pytest~=5.1
+    pytest
 commands =
     pytest {posargs:tests}
 
-[testenv:pypy36]
-basepython = pypy3.6
-
 [testenv:style]
-basepython = python3.7
+basepython = python3.6
 deps =
-    flake8~=3.7
+    flake8
 commands =
     flake8 pathstring.py
 """
