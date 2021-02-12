@@ -17,25 +17,25 @@ classifiers = [
     "License :: OSI Approved :: BSD License",
     "Operating System :: OS Independent",
     "Programming Language :: Python",
+    "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.7",
     "Programming Language :: Python :: 3.6",
-    "Programming Language :: Python :: 3.5",
     "Programming Language :: Python :: Implementation :: CPython",
     "Programming Language :: Python :: Implementation :: PyPy",
     "Topic :: Software Development :: Libraries :: Python Modules"
 ]
 
-include = ["HISTORY.rst", "*.pyi", "tests/**/*.py"]
+include = ["*.pyi"]
 
 [tool.poetry.dependencies]
-python = "^3.5"
+python = "^3.6"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.1.1"
 flake8 = "^3.7.8"
-black = {version = "^19.10b0", python = "^3.6"}
-tox = "^3.14.3"
+black = "^20.8b1"
+tox = "^3.21.4"
 
 [tool.black]
 line-length = 96
@@ -43,7 +43,7 @@ line-length = 96
 [tool.tox]
 legacy_tox_ini = """
 [tox]
-envlist = py{38,37,36,35}, pypy3, style
+envlist = py{39,38,37,36}, pypy{37,36}, style
 isolated_build = True
 
 [testenv]
@@ -53,7 +53,7 @@ commands =
     pytest {posargs:tests}
 
 [testenv:style]
-basepython = python3.6
+basepython = python3.8
 deps =
     flake8
 commands =
