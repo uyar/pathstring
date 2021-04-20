@@ -7,10 +7,12 @@ __pycache__
 .coverage
 .tox
 .venv
+.python-version
 
 build
 dist
 prof
+coverage.xml
 
 .idea
 .vscode
