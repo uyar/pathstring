@@ -1,4 +1,4 @@
-# Copyright (C) 2019 H. Turgut Uyar <uyar@tekir.org>
+# Copyright (C) 2019-2022 H. Turgut Uyar <uyar@tekir.org>
 #
 # pathstring is released under the BSD license. Read the included
 # LICENSE.txt file for details.
@@ -13,7 +13,7 @@ from inspect import signature
 from itertools import dropwhile, zip_longest
 
 
-__version__ = "1.0.0"
+__version__ = "1.1.0"
 
 
 def _make_path_type(name):
@@ -63,37 +63,42 @@ def _make_path_type(name):
         return Path(up_path, down_path)
 
     attrs = {}
+
     attrs["__new__"] = new_path
-    for attr in ["parts", "drive", "root", "anchor", "name", "suffix", "suffixes", "stem"]:
-        attrs[attr] = property(get_property(attr), doc=getattr(pathlib.Path, attr).__doc__)
-    for attr in ["parent", "parents"]:
-        attrs[attr] = property(
-            get_property(attr, as_path=True), doc=getattr(pathlib.Path, attr).__doc__
-        )
-    for method in ["cwd", "home"]:
-        attrs[method] = get_method(method, class_method=True, as_path=True)
-    for method in [
-        "__truediv__",
-        "__rtruediv__",
-        "absolute",
-        "expanduser",
-        "glob",
-        "iterdir",
-        "joinpath",
-        "resolve",
-        "rglob",
-        "with_name",
-        "with_suffix",
+
+    for attr in [
+        "anchor",
+        "drive",
+        "name",
+        "parts",
+        "root",
+        "stem",
+        "suffix",
+        "suffixes",
     ]:
-        meth = get_method(method, as_path=True)
-        if meth is not None:
-            attrs[method] = meth
+        attrs[attr] = property(get_property(attr),
+                               doc=getattr(pathlib.Path, attr).__doc__)
+
+    for attr in [
+        "parent",
+        "parents",
+    ]:
+        attrs[attr] = property(get_property(attr, as_path=True),
+                               doc=getattr(pathlib.Path, attr).__doc__)
+
+    for method in [
+        "cwd",
+        "home",
+    ]:
+        attrs[method] = get_method(method, class_method=True, as_path=True)
+
     for method in [
         "as_posix",
         "as_uri",
         "chmod",
         "exists",
         "group",
+        "hardlink_to",
         "is_absolute",
         "is_block_device",
         "is_char_device",
@@ -101,10 +106,12 @@ def _make_path_type(name):
         "is_fifo",
         "is_file",
         "is_mount",
+        "is_relative_to",
         "is_reserved",
         "is_socket",
         "is_symlink",
         "lchmod",
+        "link_to",
         "lstat",
         "match",
         "mkdir",
@@ -125,6 +132,26 @@ def _make_path_type(name):
         meth = get_method(method)
         if meth is not None:
             attrs[method] = meth
+
+    for method in [
+        "__truediv__",
+        "__rtruediv__",
+        "absolute",
+        "expanduser",
+        "glob",
+        "iterdir",
+        "joinpath",
+        "readlink",
+        "resolve",
+        "rglob",
+        "with_name",
+        "with_stem",
+        "with_suffix",
+    ]:
+        meth = get_method(method, as_path=True)
+        if meth is not None:
+            attrs[method] = meth
+
     attrs["relative_to"] = relative_to
     attrs["rmtree"] = shutil.rmtree
 
