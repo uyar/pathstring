@@ -23,7 +23,7 @@ classifiers = [
     "Topic :: Software Development :: Libraries :: Python Modules"
 ]
 
-requires-python = ">=3.7"
+requires-python = "~=3.7"
 
 [project.optional-dependencies]
 dev = [
