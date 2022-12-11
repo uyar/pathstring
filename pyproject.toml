@@ -14,6 +14,7 @@ classifiers = [
     "License :: OSI Approved :: BSD License",
     "Operating System :: OS Independent",
     "Programming Language :: Python",
+    "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.8",
@@ -30,6 +31,7 @@ dev = [
     "pytest",
     "flake8",
     "tox",
+    "build",
 ]
 
 [project.urls]
@@ -39,7 +41,7 @@ Repository = "https://github.com/uyar/pathstring"
 [tool.tox]
 legacy_tox_ini = """
 [tox]
-envlist = py{310,39,38,37}, pypy{39,38,37}, style
+envlist = py{311,310,39,38,37}, pypy{39,38,37}, style
 isolated_build = True
 
 [testenv]
