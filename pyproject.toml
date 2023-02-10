@@ -14,11 +14,12 @@ classifiers = [
     "License :: OSI Approved :: BSD License",
     "Operating System :: OS Independent",
     "Programming Language :: Python",
-    "Programming Language :: Python :: 3.11",
-    "Programming Language :: Python :: 3.10",
-    "Programming Language :: Python :: 3.9",
-    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: Implementation :: CPython",
     "Programming Language :: Python :: Implementation :: PyPy",
     "Topic :: Software Development :: Libraries :: Python Modules"
@@ -27,32 +28,35 @@ classifiers = [
 requires-python = "~=3.7"
 
 [project.optional-dependencies]
-dev = [
+tests = [
     "pytest",
+]
+lint = [
     "flake8",
+]
+dev = [
+    "pathstring[tests,lint]",
     "tox",
     "build",
 ]
 
 [project.urls]
-Homepage = "https://pypi.org/project/pathstring/"
-Repository = "https://github.com/uyar/pathstring"
+homepage = "https://pypi.org/project/pathstring/"
+repository = "https://github.com/uyar/pathstring"
 
 [tool.tox]
 legacy_tox_ini = """
 [tox]
-envlist = py{311,310,39,38,37}, pypy{39,38,37}, style
+envlist = py{37,38,39,310,311}, pypy{37,38,39}, style
 isolated_build = True
 
 [testenv]
-deps =
-    pytest
+extras = tests
 commands =
     pytest {posargs:tests}
 
 [testenv:style]
-deps =
-    flake8
+extras = lint
 commands =
     flake8 pathstring.py
 """
