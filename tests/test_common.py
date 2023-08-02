@@ -7,7 +7,7 @@ import time
 
 from pkg_resources import get_distribution
 
-from pathstring import __version__, Path
+from pathstring import Path, __version__
 
 
 def test_version():

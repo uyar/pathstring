@@ -6,6 +6,7 @@ import sys
 
 from pathstring import Path
 
+
 if sys.platform != "win32":
     import grp
     import pwd
