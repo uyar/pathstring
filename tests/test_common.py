@@ -4,14 +4,13 @@ import os
 import shutil
 import sys
 import time
-
-from pkg_resources import get_distribution
+from importlib import metadata
 
 from pathstring import Path, __version__
 
 
-def test_version():
-    assert get_distribution("pathstring").version == __version__
+def test_installed_version_should_match_tested_version():
+    assert metadata.version("pathstring") == __version__
 
 
 def test_single_segment_should_be_same_as_input():
@@ -374,13 +373,10 @@ def test_resolve_should_resolve_symbolic_link(fs):
     assert Path(fs, "link1").resolve() == os.path.join(fs, "file1.txt")
 
 
-@mark.skipif(sys.version_info < (3, 6, 9), reason="behavior change in 3.6.9")
-@mark.skipif(sys.version_info < (3, 6), reason="strict in python 3.5")
 def test_resolve_should_eliminate_pardir(fs):
     assert Path("docs/../setup.py").resolve() == os.path.join(os.getcwd(), "setup.py")
 
 
-@mark.skipif(sys.version_info < (3, 6), reason="added in python 3.6")
 def test_resolve_should_fail_for_nonexisting_path_when_strict(fs):
     with raises(FileNotFoundError):
         Path("docs/../setup.py").resolve(strict=True)
