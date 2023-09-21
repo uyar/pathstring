@@ -7,7 +7,7 @@ cffi==1.15.1
 chardet==5.2.0
 charset-normalizer==3.2.0
 colorama==0.4.6
-cryptography==41.0.3
+cryptography==41.0.4
 distlib==0.3.7
 docutils==0.20.1
 exceptiongroup==1.1.2
