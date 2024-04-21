@@ -94,9 +94,9 @@ def test_joinpath_should_extend_drive_with_path():
     assert Path("c:").joinpath("\\Program Files") == "c:\\Program Files"
 
 
-def test_relative_to_on_different_drive_should_fail_even_when_not_strict():
+def test_relative_to_on_different_drive_should_fail_even_when_walking_up():
     with raises(ValueError):
-        Path("c:\\windows").relative_to(Path("d:\\"), strict=False)
+        Path("c:\\windows").relative_to(Path("d:\\"), walk_up=True)
 
 
 def test_rename_should_fail_for_existing_target(fs):

@@ -1,6 +1,11 @@
 History
 =======
 
+2.0 (unreleased)
+----------------
+
+- Rename "strict" parameter to "walk_up" for compatibility with Python 3.12.
+
 1.1.0 (2022-09-26)
 ------------------
 

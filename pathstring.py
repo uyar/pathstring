@@ -1,4 +1,4 @@
-# Copyright (C) 2019-2022 H. Turgut Uyar <uyar@tekir.org>
+# Copyright (C) 2019-2024 H. Turgut Uyar <uyar@tekir.org>
 #
 # pathstring is released under the BSD license. Read the included
 # LICENSE.txt file for details.
@@ -8,12 +8,13 @@
 import os
 import pathlib
 import shutil
+import sys
 import types
 from inspect import signature
 from itertools import dropwhile, zip_longest
 
 
-__version__ = "1.1.0"
+__version__ = "2.0"
 
 
 def _make_path_type(name):
@@ -49,13 +50,15 @@ def _make_path_type(name):
 
         return f
 
-    def relative_to(self, other, strict=True):
+    def relative_to(self, other, walk_up=False):
         """Get the relative path of this path starting from another path."""
-        if strict:
+        if not walk_up:
             return Path(pathlib.Path(self).relative_to(other))
         if self.drive != other.drive:
             message = f"'{self}' and '{other}' are not on the same drive"
             raise ValueError(message)
+        if sys.version_info >= (3, 12):
+            return Path(pathlib.Path(self).relative_to(other, walk_up=walk_up))
         parts = zip_longest(other.absolute().parts, self.absolute().parts)
         path_diff = dropwhile(lambda ps: ps[0] == ps[1], parts)
         up_parts, down_parts = zip(*path_diff)

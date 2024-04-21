@@ -1,6 +1,6 @@
 [project]
 name = "pathstring"
-version = "1.1.0"
+version = "2.0"
 description = "String with path operations."
 readme = "README.rst"
 

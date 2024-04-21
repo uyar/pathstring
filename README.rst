@@ -1,3 +1,6 @@
+pathstring
+==========
+
 pathstring is a very small module that provides only one class
 (``pathstring.Path``) which is a string with support for path operations.
 Technically, it subclasses ``str`` and delegates path related operations to
@@ -16,8 +19,8 @@ Differences from pathlib paths are:
   on the path. Actually, since paths are strings, ``shutil.rmtree(path)``
   will also work.
 
-- Adds a ``strict`` parameter to the ``Path.relative_to()`` method
-  which, when set to ``False``, will also navigate "up" in the hierarchy.
+- Supports the ``walk_up`` parameter to the ``Path.relative_to()`` method
+  which, when set to ``True``, will also navigate "up" in the hierarchy.
 
 - No support for case-insensitive comparisons on Windows.
 
@@ -30,7 +33,7 @@ compatibility.
 License
 -------
 
-Copyright (C) 2019 H. Turgut Uyar <uyar@tekir.org>
+Copyright (C) 2019-2024 H. Turgut Uyar <uyar@tekir.org>
 
 pathstring is released under the BSD license. Read the included
 ``LICENSE.txt`` file for details.
